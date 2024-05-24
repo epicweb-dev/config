@@ -12,6 +12,7 @@
     "#/*": "./*"
   },
   "exports": {
+    ".": "./index.js",
     "./prettier": "./configs/prettier.js",
     "./typescript": "./configs/typescript.json",
     "./eslint": "./configs/eslint.js"
