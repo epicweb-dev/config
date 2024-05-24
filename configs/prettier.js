@@ -19,8 +19,10 @@ export default {
 	trailingComma: 'all',
 	useTabs: true,
 	overrides: [
+		// formatting the package.json with anything other than spaces will cause
+		// issues when running install...
 		{
-			files: ['**/*.json'],
+			files: ['**/package.json'],
 			options: {
 				useTabs: false,
 			},
