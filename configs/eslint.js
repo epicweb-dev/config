@@ -8,6 +8,7 @@ export default [
 			'**/public/build/**',
 			'**/playwright-report/**',
 			'**/server-build/**',
+			'**/dist/**',
 		],
 	},
 
