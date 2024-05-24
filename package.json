@@ -18,6 +18,7 @@
     "./eslint": "./configs/eslint.js"
   },
   "files": [
+    "./index.js",
     "./configs"
   ],
   "prettier": "./configs/prettier.js",
