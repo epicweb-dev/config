@@ -26,7 +26,6 @@ export default [
 			},
 		},
 		rules: {
-			'no-unused-vars': 'warn',
 			'react-hooks/rules-of-hooks': 'error',
 			'react-hooks/exhaustive-deps': 'warn',
 		},
@@ -34,12 +33,21 @@ export default [
 
 	// JS and JSX files
 	{
-		files: ['**/*.js', '**/*.jsx'],
+		files: ['**/*.js?(x)'],
 		rules: {
 			// most of these rules are useful for JS but not TS because TS handles these better
 			// if it weren't for https://github.com/import-js/eslint-plugin-import/issues/2132
 			// we could enable this :(
 			// 'import/no-unresolved': 'error',
+			'no-unused-vars': [
+				'warn',
+				{
+					args: 'after-used',
+					argsIgnorePattern: '^_',
+					ignoreRestSiblings: true,
+					varsIgnorePattern: '^ignored',
+				},
+			],
 		},
 	},
 
@@ -57,6 +65,15 @@ export default [
 				.default,
 		},
 		rules: {
+			'@typescript-eslint/no-unused-vars': [
+				'warn',
+				{
+					args: 'after-used',
+					argsIgnorePattern: '^_',
+					ignoreRestSiblings: true,
+					varsIgnorePattern: '^ignored',
+				},
+			],
 			'import/consistent-type-specifier-style': ['warn', 'prefer-inline'],
 			'@typescript-eslint/consistent-type-imports': [
 				'warn',
