@@ -12,9 +12,9 @@
     "#/*": "./*"
   },
   "exports": {
-    "prettier": "./configs/prettier.js",
-    "typescript": "./configs/typescript.json",
-    "eslint": "./configs/eslint.js"
+    "./prettier": "./configs/prettier.js",
+    "./typescript": "./configs/typescript.json",
+    "./eslint": "./configs/eslint.js"
   },
   "files": [
     "./configs"
