@@ -16,6 +16,7 @@ export default [
 	{
 		plugins: {
 			'react-hooks': (await import('eslint-plugin-react-hooks')).default,
+			import: (await import('eslint-plugin-import-x')).default,
 		},
 		languageOptions: {
 			globals: {
@@ -33,7 +34,10 @@ export default [
 	// JS and JSX files
 	{
 		files: ['**/*.js', '**/*.jsx'],
-		// TODO: rules for non TS files
+		rules: {
+			// most of these rules are useful for JS but not TS because TS handles these better
+			'import/no-unresolved': 'error',
+		},
 	},
 
 	// TS and TSX files
@@ -48,7 +52,6 @@ export default [
 		plugins: {
 			'@typescript-eslint': (await import('@typescript-eslint/eslint-plugin'))
 				.default,
-			import: (await import('eslint-plugin-import-x')).default,
 		},
 		rules: {
 			'import/consistent-type-specifier-style': ['warn', 'prefer-inline'],
