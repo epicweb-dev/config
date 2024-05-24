@@ -36,7 +36,9 @@ export default [
 		files: ['**/*.js', '**/*.jsx'],
 		rules: {
 			// most of these rules are useful for JS but not TS because TS handles these better
-			'import/no-unresolved': 'error',
+			// if it weren't for https://github.com/import-js/eslint-plugin-import/issues/2132
+			// we could enable this :(
+			// 'import/no-unresolved': 'error',
 		},
 	},
 
