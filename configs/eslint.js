@@ -3,6 +3,7 @@ import globals from 'globals'
 export default [
 	{
 		ignores: [
+			'**/.cache/**',
 			'**/node_modules/**',
 			'**/build/**',
 			'**/public/build/**',
