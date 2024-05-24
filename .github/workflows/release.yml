@@ -5,7 +5,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  validate:
     name: 🔍 Validate
     runs-on: ubuntu-latest
     steps:
