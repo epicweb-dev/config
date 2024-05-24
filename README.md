@@ -113,6 +113,11 @@ Learn more from
 
 </details>
 
+There are endless rules we could enable. However, we want to keep our
+configurations minimal and only enable rules that catch real problems (the kind
+that are likely to happen). This keeps our linting faster and reduces the number
+of false positives.
+
 ## License
 
 MIT
