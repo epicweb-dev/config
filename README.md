@@ -81,9 +81,14 @@ Create a `tsconfig.json` file in your project root with the following content:
 ```json
 {
 	"extends": ["@epic-web/config/typescript"],
-	"include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+	"include": [
+		"@epic-web/config/reset.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"**/*.js",
+		"**/*.jsx"
+	],
 	"compilerOptions": {
-		"types": ["@epic-web/config/reset.d.ts"],
 		"paths": {
 			"#app/*": ["./app/*"],
 			"#tests/*": ["./tests/*"]
