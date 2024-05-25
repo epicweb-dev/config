@@ -28,6 +28,22 @@ export default [
 		rules: {
 			'react-hooks/rules-of-hooks': 'error',
 			'react-hooks/exhaustive-deps': 'warn',
+			'import/no-duplicates': ['warn', { 'prefer-inline': true }],
+			'import/order': [
+				'warn',
+				{
+					alphabetize: { order: 'asc', caseInsensitive: true },
+					pathGroups: [{ pattern: '#*/**', group: 'internal' }],
+					groups: [
+						'builtin',
+						'external',
+						'internal',
+						'parent',
+						'sibling',
+						'index',
+					],
+				},
+			],
 		},
 	},
 
