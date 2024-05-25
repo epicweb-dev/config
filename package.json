@@ -13,18 +13,12 @@
   },
   "exports": {
     ".": "./index.js",
-    "./prettier": "./configs/prettier.js",
+    "./prettier": "./prettier.js",
     "./typescript": "./typescript.json",
     "./reset.d.ts": "./reset.d.ts",
-    "./eslint": "./configs/eslint.js"
+    "./eslint": "./eslint.js"
   },
-  "files": [
-    "./index.js",
-    "./typescript.json",
-    "./reset.d.ts",
-    "./configs"
-  ],
-  "prettier": "./configs/prettier.js",
+  "prettier": "./prettier.js",
   "scripts": {
     "format": "prettier . --write",
     "lint": "eslint .",
