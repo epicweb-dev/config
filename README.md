@@ -66,10 +66,10 @@ Create a `.prettierrc.js` file in your project root with the following content:
 import defaultConfig from '@epic-web/config/prettier'
 
 /** @type {import("prettier").Options} */
-export default {
+export default [
 	...defaultConfig,
 	// .. your overrides here...
-}
+]
 ```
 
 </details>

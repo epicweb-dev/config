@@ -17,6 +17,7 @@ export default [
 	{
 		plugins: {
 			'react-hooks': (await import('eslint-plugin-react-hooks')).default,
+			react: (await import('eslint-plugin-react')).default,
 			import: (await import('eslint-plugin-import-x')).default,
 		},
 		languageOptions: {
@@ -28,6 +29,7 @@ export default [
 		rules: {
 			'react-hooks/rules-of-hooks': 'error',
 			'react-hooks/exhaustive-deps': 'warn',
+			'react/jsx-key': 'warn',
 			'import/no-duplicates': ['warn', { 'prefer-inline': true }],
 			'import/order': [
 				'warn',
@@ -102,9 +104,9 @@ export default [
 		},
 	},
 
-	// TSX-only files
+	// JSX/TSX files
 	{
-		files: ['**/*.tsx'],
+		files: ['**/*.tsx', '**/*.jsx'],
 		languageOptions: {
 			parserOptions: {
 				jsx: true,
