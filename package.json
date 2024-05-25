@@ -19,6 +19,7 @@
   },
   "files": [
     "./index.js",
+    "./typescript.json",
     "./configs"
   ],
   "prettier": "./configs/prettier.js",
