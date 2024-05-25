@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
+	"include": ["@epic-web/config/reset.d.ts"],
 	"compilerOptions": {
-		"types": ["./configs/typescript.d.ts"],
 		"lib": ["DOM", "DOM.Iterable", "ES2023"],
 		"isolatedModules": true,
 		"esModuleInterop": true,

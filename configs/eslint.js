@@ -29,7 +29,6 @@ export default [
 		rules: {
 			'react-hooks/rules-of-hooks': 'error',
 			'react-hooks/exhaustive-deps': 'warn',
-			'react/jsx-key': 'warn',
 			'import/no-duplicates': ['warn', { 'prefer-inline': true }],
 			'import/order': [
 				'warn',
@@ -111,6 +110,9 @@ export default [
 			parserOptions: {
 				jsx: true,
 			},
+		},
+		rules: {
+			'react/jsx-key': 'warn',
 		},
 	},
 ]
