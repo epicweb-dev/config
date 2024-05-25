@@ -15,7 +15,7 @@
     ".": "./index.js",
     "./prettier": "./configs/prettier.js",
     "./typescript": "./typescript.json",
-    "./reset.d.ts": "./configs/reset.d.ts",
+    "./reset.d.ts": "./reset.d.ts",
     "./eslint": "./configs/eslint.js"
   },
   "files": [
