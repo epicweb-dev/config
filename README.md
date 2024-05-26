@@ -43,7 +43,16 @@ configuring code quality tools or babysitting them.
 This is a set of configurations you can use in your web projects to avoid
 wasting time.
 
+## Decisions
+
+You can learn about the different decisions made for this project in
+[the decision docs](./docs/decisions).
+
 ## Usage
+
+Technically you configure everything yourself, but you can use the configs in
+this project as a starter for your projects (and in some cases you don't need to
+configure anything more than the defaults).
 
 ### Prettier
 
