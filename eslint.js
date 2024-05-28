@@ -1,5 +1,10 @@
 import globals from 'globals'
 
+const hasTypeScript = await import('typescript').then(
+	() => true,
+	() => false,
+)
+
 export default [
 	{
 		ignores: [
@@ -69,43 +74,46 @@ export default [
 	},
 
 	// TS and TSX files
-	{
-		files: ['**/*.ts?(x)'],
-		languageOptions: {
-			parser: await import('@typescript-eslint/parser'),
-			parserOptions: {
-				project: true,
-			},
-		},
-		plugins: {
-			'@typescript-eslint': (await import('@typescript-eslint/eslint-plugin'))
-				.default,
-		},
-		rules: {
-			'@typescript-eslint/no-unused-vars': [
-				'warn',
-				{
-					args: 'after-used',
-					argsIgnorePattern: '^_',
-					ignoreRestSiblings: true,
-					varsIgnorePattern: '^ignored',
+	hasTypeScript
+		? {
+				files: ['**/*.ts?(x)'],
+				languageOptions: {
+					parser: await import('@typescript-eslint/parser'),
+					parserOptions: {
+						project: true,
+					},
 				},
-			],
-			'import/consistent-type-specifier-style': ['warn', 'prefer-inline'],
-			'@typescript-eslint/consistent-type-imports': [
-				'warn',
-				{
-					prefer: 'type-imports',
-					disallowTypeAnnotations: true,
-					fixStyle: 'inline-type-imports',
+				plugins: {
+					'@typescript-eslint': (
+						await import('@typescript-eslint/eslint-plugin')
+					).default,
 				},
-			],
-		},
-	},
+				rules: {
+					'@typescript-eslint/no-unused-vars': [
+						'warn',
+						{
+							args: 'after-used',
+							argsIgnorePattern: '^_',
+							ignoreRestSiblings: true,
+							varsIgnorePattern: '^ignored',
+						},
+					],
+					'import/consistent-type-specifier-style': ['warn', 'prefer-inline'],
+					'@typescript-eslint/consistent-type-imports': [
+						'warn',
+						{
+							prefer: 'type-imports',
+							disallowTypeAnnotations: true,
+							fixStyle: 'inline-type-imports',
+						},
+					],
+				},
+			}
+		: null,
 
 	// JSX/TSX files
 	{
-		files: ['**/*.tsx', '**/*.jsx'],
+		files: [hasTypeScript ? '**/*.tsx' : null, '**/*.jsx'].filter(Boolean),
 		languageOptions: {
 			parserOptions: {
 				jsx: true,
@@ -115,4 +123,4 @@ export default [
 			'react/jsx-key': 'warn',
 		},
 	},
-]
+].filter(Boolean)
