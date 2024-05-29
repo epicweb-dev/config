@@ -1,6 +1,6 @@
 name: 💡 ESLint Suggestion
 description: Suggest a change in the ESLint config.
-category: ideas
+category: eslint-suggestion
 body:
   - type: markdown
     attributes:
