@@ -5,7 +5,7 @@ contact_links:
     about:
       If you can't get something to work the way you expect, open a question in
       the discussions.
-  - name: ESLint Rule Suggestion
+  - name: 👮 ESLint Rule Suggestion
     url: https://github.com/epicweb-dev/config/discussions/new?category=eslint-suggestion
     about:
       We appreciate you taking the time to improve `@epic-web/config` with your
