@@ -24,7 +24,6 @@ body:
         rules in your project. The ones in the built-in config need to balance
         the benefit and the cost of adding a new rule.
   - type: textarea
-    id: search-terms
     attributes:
       label: Search Terms Used
       description: |
@@ -33,10 +32,9 @@ body:
     validations:
       required: true
   - type: input
-    id: search-terms
     attributes:
       label: Rule Docs
-      description:
+      description: |
         Link to the documentation for the rule you're suggesting changing
       placeholder: https://eslint.org/docs/latest/rules/no-var
     validations:
@@ -53,7 +51,7 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: Issue Liklihood
+      label: Issue Likelihood
       description: |
         Convince me that the rule catches issues that engineers will
         likely encounter.
