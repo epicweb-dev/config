@@ -177,7 +177,7 @@ export const config = [
 	hasTestingLibrary
 		? {
 				files: testFiles,
-				ignores: [playwrightFiles],
+				ignores: [...playwrightFiles],
 				plugins: {
 					'testing-library': (await import('eslint-plugin-testing-library'))
 						.default,
@@ -193,7 +193,7 @@ export const config = [
 	hasJestDom
 		? {
 				files: testFiles,
-				ignores: [playwrightFiles],
+				ignores: [...playwrightFiles],
 				plugins: {
 					'jest-dom': (await import('eslint-plugin-jest-dom')).default,
 				},
@@ -209,7 +209,7 @@ export const config = [
 	hasVitest
 		? {
 				files: testFiles,
-				ignores: [playwrightFiles],
+				ignores: [...playwrightFiles],
 				plugins: {
 					vitest: (await import('eslint-plugin-vitest')).default,
 				},
