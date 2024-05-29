@@ -19,7 +19,7 @@ couldn't communicate that effectively.
 
 Some configurations in this project will affect the coming project's runtime
 code (like how TypeScript is configured), but most of it will not (like how
-prettier or ESLing is configured).
+Prettier or ESLint is configured).
 
 ## Decision
 
