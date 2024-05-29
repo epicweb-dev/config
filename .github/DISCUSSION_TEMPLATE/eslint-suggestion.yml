@@ -1,20 +1,21 @@
 body:
   - type: markdown
     attributes:
-      value: |-
+      value: |
         Thank you for helping to improve `@epic-web/config`!
 
         Please fill out the details below. Keep in mind that every rule added to
         the linting config:
 
-        1. Helps catch potential issues 2. Slows down running ESLint 3.
-        Increases the number of annoying false positives
+        1. Helps catch potential issues
+        2. Slows down running ESLint
+        3. Increases the number of annoying false positives
 
         With that in mind, please consider the following guiding principles
         which will be used to evaluate your suggestion:
 
-        1. The rule must catch issues that are likely to happen 2. The rule must
-        prevent actual issues (not subjective choices)
+        1. The rule must catch issues that are likely to happen
+        2. The rule must prevent actual issues (not subjective choices)
 
         You can always extend the built-in configuration by adding your own
         rules in your project. The ones in the built-in config need to balance
