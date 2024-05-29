@@ -8,6 +8,7 @@
 		"strict": true,
 		"skipLibCheck": true,
 		"allowImportingTsExtensions": true,
+		"noUncheckedIndexedAccess": true,
 		"noEmit": true
 	}
 }
