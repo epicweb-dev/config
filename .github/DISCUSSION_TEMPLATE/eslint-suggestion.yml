@@ -20,8 +20,8 @@ body:
     attributes:
       label: Search Terms Used
       description: >-
-        Please list the search terms you used to search the issues and PRs
-        before submitting this issue.
+        Please list the search terms you used to search the discussions, issues,
+        and PRs before submitting this issue.
     validations:
       required: true
   - type: input

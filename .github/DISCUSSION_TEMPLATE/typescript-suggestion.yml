@@ -1,0 +1,55 @@
+body:
+  - type: markdown
+    attributes:
+      value: |-
+        Thank you for helping to improve `@epic-web/config`!
+
+        Please fill out the details below.
+
+        Keep in mind you can always extend the built-in configuration with your own config.
+  - type: textarea
+    attributes:
+      label: Search Terms Used
+      description: >-
+        Please list the search terms you used to search the discussions, issues,
+        and PRs before submitting this issue.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Config Docs
+      description: >-
+        Link to the documentation for the config option you're suggesting
+        changing
+      placeholder: https://www.typescriptlang.org/tsconfig/#noImplicitThis
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Suggested Change
+      description: >-
+        Write out the suggested change in configuration. If the config is
+        already present, explain why it should be removed or changed. If it's
+        not present, explain why it should be added. And provide the final
+        configuration for the option.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Issues without the change
+      description: >-
+        Convince me why life is better with this change.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Severity of inaction
+      description: Convince me why not doing anything is bad.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: Any other context that could be helpful.
+    validations:
+      required: false
