@@ -1,0 +1,73 @@
+name: 💡 ESLint Suggestion
+description: Suggest a change in the ESLint config.
+category: ideas
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping to improve `@epic-web/config`!
+
+        Please fill out the details below. Keep in mind that every rule added to
+        the linting config:
+
+        1. Helps catch potential issues
+        2. Slows down running ESLint
+        3. Increases the number of annoying false positives
+
+        With that in mind, please consider the following guiding principles
+        which will be used to evaluate your suggestion:
+
+        1. The rule must catch issues that are likely to happen
+        2. The rule must prevent actual issues (not subjective choices)
+
+        You can always extend the built-in configuration by adding your own
+        rules in your project. The ones in the built-in config need to balance
+        the benefit and the cost of adding a new rule.
+  - type: textarea
+    id: search-terms
+    attributes:
+      label: Search Terms Used
+      description: |
+        Please list the search terms you used to search the issues
+        and PRs before submitting this issue.
+    validations:
+      required: true
+  - type: input
+    id: search-terms
+    attributes:
+      label: Rule Docs
+      description:
+        Link to the documentation for the rule you're suggesting changing
+      placeholder: https://eslint.org/docs/latest/rules/no-var
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Suggested Change
+      description: |
+        Write out the suggested change in configuration. If the rule is already
+        enabled, explain why it should be disabled or changed. If it's not
+        enabled, explain why it should be enabled. And provide the final
+        configuration for the rule (if it has any additional options).
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Issue Liklihood
+      description: |
+        Convince me that the rule catches issues that engineers will
+        likely encounter.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Issue Severity
+      description: Convince me that the rule prevents actual issues.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: Any other context that could be helpful.
+    validations:
+      required: false

@@ -1,0 +1,37 @@
+name: 🐛 Bug Report
+description: Something is wrong with `@epic-web/config`.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping to improve `@epic-web/config`!
+
+        Please fill out the form below to give us an idea of what we can do
+        better!
+  - type: textarea
+    id: system-info
+    attributes:
+      label: System Info
+      description: Output of `npx envinfo --system --npmPackages --binaries`
+      render: shell
+      placeholder: System, Binaries, Browsers
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: A concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Actual Behavior
+      description: A concise description of what you're experiencing.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: Any other context that could help us improve.
+    validations:
+      required: false
