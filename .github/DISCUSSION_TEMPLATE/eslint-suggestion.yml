@@ -1,7 +1,7 @@
 body:
   - type: markdown
     attributes:
-      value: >-
+      value: |-
         Thank you for helping to improve `@epic-web/config`!
 
         Please fill out the details below. Keep in mind that every rule added to
