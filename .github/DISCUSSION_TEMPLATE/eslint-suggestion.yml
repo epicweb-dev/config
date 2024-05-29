@@ -4,21 +4,20 @@ category: eslint-suggestion
 body:
   - type: markdown
     attributes:
-      value: |
+      value: >-
         Thank you for helping to improve `@epic-web/config`!
 
         Please fill out the details below. Keep in mind that every rule added to
         the linting config:
 
-        1. Helps catch potential issues
-        2. Slows down running ESLint
-        3. Increases the number of annoying false positives
+        1. Helps catch potential issues 2. Slows down running ESLint 3.
+        Increases the number of annoying false positives
 
         With that in mind, please consider the following guiding principles
         which will be used to evaluate your suggestion:
 
-        1. The rule must catch issues that are likely to happen
-        2. The rule must prevent actual issues (not subjective choices)
+        1. The rule must catch issues that are likely to happen 2. The rule must
+        prevent actual issues (not subjective choices)
 
         You can always extend the built-in configuration by adding your own
         rules in your project. The ones in the built-in config need to balance
@@ -26,15 +25,15 @@ body:
   - type: textarea
     attributes:
       label: Search Terms Used
-      description: |
-        Please list the search terms you used to search the issues
-        and PRs before submitting this issue.
+      description: >-
+        Please list the search terms you used to search the issues and PRs
+        before submitting this issue.
     validations:
       required: true
   - type: input
     attributes:
       label: Rule Docs
-      description: |
+      description: >-
         Link to the documentation for the rule you're suggesting changing
       placeholder: https://eslint.org/docs/latest/rules/no-var
     validations:
@@ -42,7 +41,7 @@ body:
   - type: textarea
     attributes:
       label: Suggested Change
-      description: |
+      description: >-
         Write out the suggested change in configuration. If the rule is already
         enabled, explain why it should be disabled or changed. If it's not
         enabled, explain why it should be enabled. And provide the final
@@ -52,9 +51,9 @@ body:
   - type: textarea
     attributes:
       label: Issue Likelihood
-      description: |
-        Convince me that the rule catches issues that engineers will
-        likely encounter.
+      description: >-
+        Convince me that the rule catches issues that engineers will likely
+        encounter.
     validations:
       required: true
   - type: textarea
