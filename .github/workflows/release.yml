@@ -48,7 +48,7 @@ jobs:
           useLockFile: false
 
       - name: 🚀 Release
-        uses: cycjimmy/semantic-release-action@v3.2.0
+        uses: cycjimmy/semantic-release-action@v4.1.0
         with:
           semantic_version: 17
           branches: |
