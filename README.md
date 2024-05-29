@@ -120,7 +120,7 @@ Create a `eslint.config.js` file in your project root with the following
 content:
 
 ```js
-import defaultConfig from '@epic-web/config/eslint'
+import { config as defaultConfig } from '@epic-web/config/eslint'
 
 /** @type {import("eslint").Linter.Config} */
 export default [...defaultConfig]

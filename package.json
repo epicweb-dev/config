@@ -39,8 +39,11 @@
     "@typescript-eslint/eslint-plugin": "^7.10.0",
     "@typescript-eslint/parser": "^7.10.0",
     "eslint-plugin-import-x": "^0.5.0",
+    "eslint-plugin-jest-dom": "^5.4.0",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-testing-library": "^6.2.2",
+    "eslint-plugin-vitest": "^0.5.4",
     "globals": "^15.3.0",
     "prettier-plugin-tailwindcss": "^0.5.14",
     "tslib": "^2.6.2"

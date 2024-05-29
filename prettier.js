@@ -1,5 +1,5 @@
 /** @type {import("prettier").Options} */
-export default {
+export const config = {
 	arrowParens: 'avoid',
 	bracketSameLine: false,
 	bracketSpacing: true,
@@ -43,3 +43,6 @@ export default {
 	tailwindAttributes: ['class', 'className', 'ngClass', '.*[cC]lassName'],
 	tailwindFunctions: ['clsx', 'cn'],
 }
+
+// this is for backward compatibility
+export default config
