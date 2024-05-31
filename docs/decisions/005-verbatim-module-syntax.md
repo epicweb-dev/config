@@ -1,8 +1,37 @@
-# Title
+# verbatimModuleSyntax
 
 Date: 2024-05-30
 
-Status: accepted
+Status: deprecated
+
+Deprecation date: 2024-05-31
+
+## Deprecation Note
+
+Turns out in Remix that `verbatimModuleSyntax` will cause issues if you try to
+import a `type` from a `.server` file into a non `.server` file. Like what we do
+in the Epic Stack for our toast utilities:
+
+```ts
+import { useEffect } from 'react'
+import { toast as showToast } from 'sonner'
+import { type Toast } from '#app/utils/toast.server.ts' // <-- the build is very unhappy about this with verbatimModuleSyntax
+
+export function useToast(toast?: Toast | null) {
+	useEffect(() => {
+		if (toast) {
+			setTimeout(() => {
+				showToast[toast.type](toast.title, {
+					id: toast.id,
+					description: toast.description,
+				})
+			}, 0)
+		}
+	}, [toast])
+}
+```
+
+For that reason, this has been removed from the config.
 
 ## Context
 

@@ -9,7 +9,6 @@
 		"skipLibCheck": true,
 		"allowImportingTsExtensions": true,
 		"noUncheckedIndexedAccess": true,
-		"verbatimModuleSyntax": true,
 		"noEmit": true
 	}
 }
