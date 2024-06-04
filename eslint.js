@@ -69,7 +69,7 @@ export const config = [
 	// JSX/TSX files
 	hasReact
 		? {
-				files: ['**/*.tsx', '**/*.jsx'].filter(Boolean),
+				files: ['**/*.tsx', '**/*.jsx'],
 				plugins: {
 					react: (await import('eslint-plugin-react')).default,
 				},
