@@ -7,17 +7,20 @@ import {
 const ERROR = 'error'
 const WARN = 'warn'
 
-const has = pkg =>
-	import(pkg).then(
-		() => true,
-		() => false,
-	)
+const has = pkg => {
+	try {
+		import.meta.resolve(pkg, import.meta.url)
+		return true
+	} catch {
+		return false
+	}
+}
 
-const hasTypeScript = await has('typescript')
-const hasReact = await has('react')
-const hasTestingLibrary = await has('@testing-library/dom')
-const hasJestDom = await has('@testing-library/jest-dom')
-const hasVitest = await has('vitest')
+const hasTypeScript = has('typescript')
+const hasReact = has('react')
+const hasTestingLibrary = has('@testing-library/dom')
+const hasJestDom = has('@testing-library/jest-dom')
+const hasVitest = has('vitest')
 const vitestFiles = ['**/__tests__/**/*', '**/*.test.*']
 const testFiles = ['**/tests/**', '**/#tests/**', ...vitestFiles]
 const playwrightFiles = ['**/e2e/**']
