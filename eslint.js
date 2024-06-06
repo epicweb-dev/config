@@ -50,6 +50,10 @@ export const config = [
 			},
 		},
 		rules: {
+			'no-warning-comments': [
+				ERROR,
+				{ terms: ['FIXME'], location: 'anywhere' },
+			],
 			'import/no-duplicates': [WARN, { 'prefer-inline': true }],
 			'import/order': [
 				WARN,
