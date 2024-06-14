@@ -1,6 +1,6 @@
 /** @type {import("prettier").Options} */
 export const config = {
-	arrowParens: 'avoid',
+	arrowParens: 'always',
 	bracketSameLine: false,
 	bracketSpacing: true,
 	embeddedLanguageFormatting: 'auto',

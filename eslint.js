@@ -7,7 +7,7 @@ import {
 const ERROR = 'error'
 const WARN = 'warn'
 
-const has = pkg => {
+const has = (pkg) => {
 	try {
 		import.meta.resolve(pkg, import.meta.url)
 		return true
