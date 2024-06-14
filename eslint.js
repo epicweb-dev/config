@@ -1,8 +1,4 @@
 import globals from 'globals'
-import {
-	parser as typescriptParser,
-	plugin as typescriptPlugin,
-} from 'typescript-eslint'
 
 const ERROR = 'error'
 const WARN = 'warn'
@@ -81,6 +77,7 @@ export const config = [
 					react: (await import('eslint-plugin-react')).default,
 				},
 				languageOptions: {
+					parser: (await import('typescript-eslint')).parser,
 					parserOptions: {
 						jsx: true,
 					},
@@ -131,13 +128,13 @@ export const config = [
 		? {
 				files: ['**/*.ts?(x)'],
 				languageOptions: {
-					parser: typescriptParser,
+					parser: (await import('typescript-eslint')).parser,
 					parserOptions: {
 						projectService: true,
 					},
 				},
 				plugins: {
-					'@typescript-eslint': typescriptPlugin,
+					'@typescript-eslint': (await import('typescript-eslint')).plugin,
 				},
 				rules: {
 					'@typescript-eslint/no-unused-vars': [
