@@ -46,6 +46,7 @@ export const config = [
 			},
 		},
 		rules: {
+			'no-unexpected-multiline': ERROR,
 			'no-warning-comments': [
 				ERROR,
 				{ terms: ['FIXME'], location: 'anywhere' },
