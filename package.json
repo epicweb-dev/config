@@ -35,6 +35,7 @@
   "author": "Kent C. Dodds <me@kentcdodds.com> (https://kentcdodds.com/)",
   "license": "MIT",
   "dependencies": {
+    "@eslint/compat": "^1.1.0",
     "@total-typescript/ts-reset": "^0.5.1",
     "eslint-plugin-import-x": "^0.5.1",
     "eslint-plugin-jest-dom": "^5.4.0",
