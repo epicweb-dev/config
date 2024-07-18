@@ -33,6 +33,7 @@
     "epic"
   ],
   "author": "Kent C. Dodds <me@kentcdodds.com> (https://kentcdodds.com/)",
+  "homepage": "https://github.com/epicweb-dev/config",
   "license": "MIT",
   "dependencies": {
     "@eslint/compat": "^1.1.0",
