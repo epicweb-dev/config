@@ -1,4 +1,3 @@
-import { fixupPluginRules } from '@eslint/compat'
 import globals from 'globals'
 
 const ERROR = 'error'
@@ -96,9 +95,7 @@ export const config = [
 		? {
 				files: ['**/*.ts?(x)', '**/*.js?(x)'],
 				plugins: {
-					'react-hooks': fixupPluginRules(
-						await import('eslint-plugin-react-hooks'),
-					),
+					'react-hooks': (await import('eslint-plugin-react-hooks')).default,
 				},
 				rules: {
 					'react-hooks/rules-of-hooks': ERROR,
