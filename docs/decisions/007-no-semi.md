@@ -14,9 +14,10 @@ and everything, they'll add the semicolons for us automatically.
 
 Another issue people have with leaving off semicolons is you can start a line
 with a bracket or a parentheses and that can cause problems if the previous line
-doesn't have a semicolon. We're not gonna have those problems because we use the
+doesn't have a semicolon. We're not going to have those problems because we use
+the
 [`no-unexpected-multiline`](https://eslint.org/docs/latest/rules/no-unexpected-multiline)
-rule from ESLint (not to mention prettier makes the code look funny if you try
+rule from ESLint (not to mention Prettier makes the code look funny if you try
 that). For example, if you were to write something like this:
 
 <!-- prettier-ignore -->
@@ -73,15 +74,15 @@ I call this "semicolon babysitting". However, if I don't have semicolons then I
 simply move the line.
 
 It's small, but it's also just one less thing to worry about when refactoring
-code and it shows up in enough situations like this one and others that it's
+code, and it shows up in enough situations like this one and others that it's
 enough reason to set `semi` to `false`.
 
 ## Decision
 
-Set the prettier config to `semi: false`.
+Set the Prettier config to `semi: false`.
 
 ## Consequences
 
-This is the way the config was from the beginning so it won't affect existing
+This is the way the config was from the beginning, so it won't affect existing
 users. Anyone who wants to use this config and wants to use semicolons can
 override that option.

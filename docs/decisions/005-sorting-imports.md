@@ -19,13 +19,13 @@ you don't even have to think about then it's fine.
 
 Prettier is often used for formatting. Changing the import order isn't really
 formatting though, so even though there is
-[a plugin](https://npm.im/prettier-plugin-organize-imports) to make prettier
-format the import order, it has a few limitations and it's philosophically
-counter to the purpose of prettier because changing the import order technically
+[a plugin](https://npm.im/prettier-plugin-organize-imports) to make Prettier
+format the import order, it has a few limitations, and it's philosophically
+counter to the purpose of Prettier because changing the import order technically
 affects the semantics of the code.
 
 ESLint on the other hand can handle this for us automatically and allows us to
-customize the order itself a bit better. Additionally, if you have a side-effect
+customize the order itself a bit better. Additionally, if you have a side effect
 import (like `import './foo.js'`), it doesn't enforce the import order.
 
 ## Decision
