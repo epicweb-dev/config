@@ -281,7 +281,7 @@ export const config = [
 				files: testFiles,
 				ignores: [...playwrightFiles],
 				plugins: {
-					vitest: (await import('eslint-plugin-vitest')).default,
+					vitest: (await import('@vitest/eslint-plugin')).default,
 				},
 				rules: {
 					// you don't want the editor to autofix this, but we do want to be
