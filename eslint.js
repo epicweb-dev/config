@@ -176,12 +176,12 @@ export const config = [
 					// it's treated as an async function by consumers and that's enough for me.
 
 					// @typescript-eslint/prefer-promise-reject-errors - sometimes you
-					// aren't the one creating the error and you just want to propogate an
+					// aren't the one creating the error, and you just want to propagate an
 					// error object with an unknown type.
 
 					// @typescript-eslint/only-throw-error - same reason as above.
-					// However this rule supports options to allow you to throw `any` and
-					// `unknown`. Unfortunately, in Remix you can throw Response objects
+					// However, this rule supports options to allow you to throw `any` and
+					// `unknown`. Unfortunately, in Remix you can throw Response objects,
 					// and we don't want to enable this rule for those cases.
 
 					// @typescript-eslint/no-unsafe-declaration-merging - this is a rare

@@ -30,8 +30,8 @@ parentheses".
 
 Additionally, consider this: if you have a single argument in an arrow function,
 you will not have parentheses around it. If you then decide to destructure it,
-add an additional argument, add a type, or add a default value, you will have to
-add parentheses.
+add an argument, add a type, or add a default value, you will have to add
+parentheses.
 
 We want to avoid the extra work required to refactor code as much as possible.
 Additionally, simpler rules are often better. The simple rule of "always have
@@ -39,7 +39,7 @@ parentheses" around the arguments of arrow functions is much simpler.
 
 ## Decision
 
-Update the prettier config from "avoid" to "always."
+Update the Prettier config from "avoid" to "always."
 
 ## Consequences
 

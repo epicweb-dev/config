@@ -35,7 +35,7 @@ npm install @epic-web/config
 ## The problem
 
 You're a professional, but you're mature enough to know that even professionals
-can make mistakes and you value your time enough to not want to waste time
+can make mistakes, and you value your time enough to not want to waste time
 configuring code quality tools or babysitting them.
 
 ## This solution
@@ -63,7 +63,7 @@ The easiest way to use this config is in your `package.json`:
 ```
 
 <details>
-  <summary>Customizing prettier</summary>
+  <summary>Customizing Prettier</summary>
 
 If you want to customize things, you should probably just copy/paste the
 built-in config. But if you really want, you can override it using regular

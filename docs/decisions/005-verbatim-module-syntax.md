@@ -12,7 +12,7 @@ Turns out in Remix that `verbatimModuleSyntax` will cause issues if you try to
 import a `type` from a `.server` file into a non `.server` file. Like what we do
 in the Epic Stack for our toast utilities:
 
-```ts
+```tsx
 import { useEffect } from 'react'
 import { toast as showToast } from 'sonner'
 import { type Toast } from '#app/utils/toast.server.ts' // <-- the build is very unhappy about this with verbatimModuleSyntax

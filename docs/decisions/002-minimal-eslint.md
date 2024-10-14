@@ -24,11 +24,11 @@ impact on the user. This is going to be relatively subjective for everyone.
 There are some rules which cover high impact issues, but are so unlikely to
 happen in any project that they are not worth including. For example,
 `no-compare-neg-zero` is protecting you from a pretty odd behavior, but the
-liklihood of it catching a real issue is so low it's not worth including.
+likelihood of it catching a real issue is so low it's not worth including.
 
 Another thing to consider is for TypeScript files, there are many rules which
-are completely redudant. For example, `no-setter-return` is a redudant rule in a
-TypeScript project because TypeScript will give a compiler error if you try to
+are completely redundant. For example, `no-setter-return` is a redundant rule in
+a TypeScript project because TypeScript will give a compiler error if you try to
 return from a setter.
 
 ## Decision
