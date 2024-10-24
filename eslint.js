@@ -17,7 +17,7 @@ const hasReact = has('react')
 const hasTestingLibrary = has('@testing-library/dom')
 const hasJestDom = has('@testing-library/jest-dom')
 const hasVitest = has('vitest')
-const vitestFiles = ['**/__tests__/**/*', '**/*.test.*']
+const vitestFiles = ['**/__tests__/**/*', '**/*.test.*', '**/*.spec.*']
 const testFiles = ['**/tests/**', '**/#tests/**', ...vitestFiles]
 const playwrightFiles = ['**/e2e/**']
 
@@ -224,8 +224,8 @@ export const config = [
 		: null,
 
 	// This assumes test files are those which are in the test directory or have
-	// *.test.* in the filename. If a file doesn't match this assumption, then it
-	// will not be allowed to import test files.
+	// *.test.* or *.spec.* in the filename. If a file doesn't match this assumption,
+	// then it will not be allowed to import test files.
 	{
 		files: ['**/*.ts?(x)', '**/*.js?(x)'],
 		ignores: testFiles,
