@@ -33,6 +33,10 @@
     "epic"
   ],
   "author": "Kent C. Dodds <me@kentcdodds.com> (https://kentcdodds.com/)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/epicweb-dev/config"
+  },
   "homepage": "https://github.com/epicweb-dev/config",
   "license": "MIT",
   "dependencies": {
