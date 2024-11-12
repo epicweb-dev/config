@@ -31,6 +31,7 @@ export const config = [
 			'**/playwright-report/**',
 			'**/server-build/**',
 			'**/dist/**',
+			'**/coverage/**',
 		],
 	},
 
