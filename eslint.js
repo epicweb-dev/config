@@ -109,6 +109,8 @@ export const config = [
 	{
 		files: ['**/*.js?(x)'],
 		rules: {
+			'no-undef': ERROR,
+
 			// most of these rules are useful for JS but not TS because TS handles these better
 			// if it weren't for https://github.com/import-js/eslint-plugin-import/issues/2132
 			// we could enable this :(
