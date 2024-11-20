@@ -79,7 +79,9 @@ export const config = [
 					react: (await import('eslint-plugin-react')).default,
 				},
 				languageOptions: {
-					parser: (await import('typescript-eslint')).parser,
+					parser: hasTypeScript
+						? (await import('typescript-eslint')).parser
+						: undefined,
 					parserOptions: {
 						jsx: true,
 					},
