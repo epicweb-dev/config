@@ -19,8 +19,8 @@ wouldn't want the reset to be applied.
 
 ## Decision
 
-We'll create a `reset.d.ts` file and consumers will have to include it in their
-`includes` manually.
+We'll create a `reset.d.ts` file and consumers will have to import it in their
+project manually.
 
 ## Consequences
 
