@@ -41,7 +41,7 @@ export const config = {
 	],
 	plugins: ['prettier-plugin-tailwindcss'],
 	tailwindAttributes: ['class', 'className', 'ngClass', '.*[cC]lassName'],
-	tailwindFunctions: ['clsx', 'cn'],
+	tailwindFunctions: ['clsx', 'cn', 'cva'],
 }
 
 // this is for backward compatibility
