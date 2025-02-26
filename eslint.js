@@ -27,7 +27,7 @@ export const config = [
 			'**/.cache/**',
 			'**/node_modules/**',
 			'**/build/**',
-			'**/public/build/**',
+			'**/public/**',
 			'**/playwright-report/**',
 			'**/server-build/**',
 			'**/dist/**',
