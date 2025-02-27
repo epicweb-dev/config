@@ -28,6 +28,7 @@ export const config = [
 			'**/node_modules/**',
 			'**/build/**',
 			'**/public/**',
+			'**/*.json',
 			'**/playwright-report/**',
 			'**/server-build/**',
 			'**/dist/**',
