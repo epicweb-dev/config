@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"isolatedModules": true,
 		"jsx": "react-jsx",
-		"module": "preserve",
+		"module": "ESNext",
 		"target": "ES2022",
 		"strict": true,
 		"skipLibCheck": true,

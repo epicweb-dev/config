@@ -8,7 +8,7 @@
   </p>
 </div>
 
-```
+```bash
 npm install @epic-web/config
 ```
 
