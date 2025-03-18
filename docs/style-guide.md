@@ -124,7 +124,7 @@ const obj = {
 	method: function () {
 		// ...
 	},
-	asyncMethod: function () {
+	asyncMethod: async function () {
 		// ...
 	},
 }
@@ -216,7 +216,9 @@ const doubledItems = []
 for (const n of items) {
 	doubledItems.push(n * 2)
 }
+```
 
+```tsx
 // ✅ Good
 for (const n of items) {
 	// ...
@@ -232,7 +234,8 @@ for (let i = 0; i < items.length; i++) {
 items.forEach((n) => {
 	// ...
 })
-
+```
+```tsx
 // ✅ Good
 for (let i = 0; i < items.length; i++) {
 	const n = items[i]
@@ -324,6 +327,10 @@ function transform(numbers: Array<number>) {}
 const items: string[] = []
 function transform(numbers: number[]) {}
 ```
+
+Learn more about the reasoning behind the Array generic syntax in the
+[Array Types in TypeScript](https://tkdodo.eu/blog/array-types-in-type-script)
+article by [Dominik Dorfmeister](https://github.com/tkdodo). 
 
 ### Destructuring
 
