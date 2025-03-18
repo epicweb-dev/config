@@ -204,7 +204,7 @@ Use Array methods over loops when transforming arrays with pure functions. Use
 `for` loops when imperative code is necessary. Never use `forEach` because it's
 never more readable than a `for` loop and there's not situation where the
 `forEach` callback function could be pure and useful. Prefer `for...of` over
-`for` loops with an index unless the index is needed.
+`for` loops.
 
 ```tsx
 // ✅ Good
@@ -237,8 +237,7 @@ items.forEach((n) => {
 ```
 ```tsx
 // ✅ Good
-for (let i = 0; i < items.length; i++) {
-	const n = items[i]
+for (const [i, n] of items.entries()) {
 	console.log(`${n} at index ${i}`)
 }
 
@@ -984,43 +983,6 @@ if (user) {
 // ❌ Avoid
 if (user === true) {
 	// ...
-}
-```
-
-#### Do not render falsiness
-
-In JSX, do not render falsy values other than `null`.
-
-```tsx
-// ✅ Good
-<div>
-	{contacts.length ? <div>You have {contacts.length} contacts</div> : null}
-</div>
-
-// ❌ Avoid
-<div>
-	{contacts.length && <div>You have {contacts.length} contacts</div>}
-</div>
-```
-
-#### Use ternaries
-
-Use ternaries for simple conditionals. When automatically formatted, they should
-be plenty readable, even on multiple lines. Ternaries are also the only
-conditional in the spec (currently) which are expressions and can be used in
-return statements and other places expressions are used.
-
-```tsx
-// ✅ Good
-const isAdmin = user.role === 'admin'
-const access = isAdmin ? 'granted' : 'denied'
-
-function App({ user }: { user: User }) {
-	return (
-		<div className="App">
-			{user.role === 'admin' ? <Link to="/admin">Admin</Link> : null}
-		</div>
-	)
 }
 ```
 
@@ -1882,4 +1844,138 @@ test('every button click updates display', () => {
 	render(<Calculator />)
 	// Testing every possible button combination...
 })
+```
+
+## React
+
+### Avoid useEffect
+
+[You Might Not Need `useEffect`](https://react.dev/learn/you-might-not-need-an-effect)
+
+Instead of using `useEffect`, use ref callbacks, event handlers with
+`flushSync`, css, `useSyncExternalStore`, etc.
+
+```tsx
+// This example was ripped from the docs:
+// ✅ Good
+function ProductPage({ product, addToCart }) {
+	function buyProduct() {
+		addToCart(product)
+		showNotification(`Added ${product.name} to the shopping cart!`)
+	}
+
+	function handleBuyClick() {
+		buyProduct()
+	}
+
+	function handleCheckoutClick() {
+		buyProduct()
+		navigateTo('/checkout')
+	}
+	// ...
+}
+
+useEffect(() => {
+	setCount(count + 1)
+}, [count])
+
+// ❌ Avoid
+function ProductPage({ product, addToCart }) {
+	useEffect(() => {
+		if (product.isInCart) {
+			showNotification(`Added ${product.name} to the shopping cart!`)
+		}
+	}, [product])
+
+	function handleBuyClick() {
+		addToCart(product)
+	}
+
+	function handleCheckoutClick() {
+		addToCart(product)
+		navigateTo('/checkout')
+	}
+	// ...
+}
+```
+
+There are a lot more examples in the docs. `useEffect` is not banned or
+anything. There are just better ways to handle most cases.
+
+Here's an example of a situation where `useEffect` is appropriate:
+
+```tsx
+// ✅ Good
+useEffect(() => {
+	const controller = new AbortController()
+
+	window.addEventListener(
+		'keydown',
+		(event: KeyboardEvent) => {
+			if (event.key !== 'Escape') return
+
+			// do something based on escape key being pressed
+		},
+		{ signal: controller.signal },
+	)
+
+	return () => {
+		controller.abort()
+	}
+}, [])
+```
+
+### Don't Sync State, Derive It
+
+[Don't Sync State, Derive It](https://kentcdodds.com/blog/dont-sync-state-derive-it)
+
+```tsx
+// ✅ Good
+const [count, setCount] = useState(0)
+const isEven = count % 2 === 0
+
+// ❌ Avoid
+const [count, setCount] = useState(0)
+const [isEven, setIsEven] = useState(false)
+
+useEffect(() => {
+	setIsEven(count % 2 === 0)
+}, [count])
+```
+
+### Do not render falsiness
+
+In JSX, do not render falsy values other than `null`.
+
+```tsx
+// ✅ Good
+<div>
+	{contacts.length ? <div>You have {contacts.length} contacts</div> : null}
+</div>
+
+// ❌ Avoid
+<div>
+	{contacts.length && <div>You have {contacts.length} contacts</div>}
+</div>
+```
+
+### Use ternaries
+
+Use ternaries for simple conditionals. When automatically formatted, they should
+be plenty readable, even on multiple lines. Ternaries are also the only
+conditional in the spec (currently) which are expressions and can be used in
+return statements and other places expressions are used.
+
+```tsx
+// ✅ Good
+const isAdmin = user.role === 'admin'
+const access = isAdmin ? 'granted' : 'denied'
+
+function App({ user }: { user: User }) {
+	return (
+		<div className="App">
+			{user.role === 'admin' ? <Link to="/admin">Admin</Link> : null}
+		</div>
+	)
+}
 ```
