@@ -235,6 +235,7 @@ items.forEach((n) => {
 	// ...
 })
 ```
+
 ```tsx
 // ✅ Good
 for (const [i, n] of items.entries()) {
@@ -329,7 +330,7 @@ function transform(numbers: number[]) {}
 
 Learn more about the reasoning behind the Array generic syntax in the
 [Array Types in TypeScript](https://tkdodo.eu/blog/array-types-in-type-script)
-article by [Dominik Dorfmeister](https://github.com/tkdodo). 
+article by [Dominik Dorfmeister](https://github.com/tkdodo).
 
 ### Destructuring
 
@@ -1979,3 +1980,19 @@ function App({ user }: { user: User }) {
 	)
 }
 ```
+
+## Misc
+
+### File naming
+
+Use kebab-case for file names.
+
+```tsx
+// ✅ Good
+import { HighlightButton } from './highlight-button'
+
+// ❌ Avoid
+import { HighlightButton } from './HighlightButton'
+```
+
+It makes things work consistently on Windows and Unix-based systems.
