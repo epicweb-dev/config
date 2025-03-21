@@ -292,7 +292,6 @@ export const config = [
 					vitest: (await import('@vitest/eslint-plugin')).default,
 				},
 				rules: {
-					'vitest/expect-expect': ERROR,
 					// you don't want the editor to autofix this, but we do want to be
 					// made aware of it
 					'vitest/no-focused-tests': [WARN, { fixable: false }],
@@ -305,6 +304,9 @@ export const config = [
 					'vitest/prefer-to-have-length': ERROR,
 					'vitest/valid-expect-in-promise': ERROR,
 					'vitest/valid-expect': ERROR,
+
+					// vitest/expect-expect - we don't enable this because it's fine to
+					// rely on testing-library to throw errors if elements aren't found.
 				},
 			}
 		: null,
@@ -317,7 +319,6 @@ export const config = [
 					playwright: (await import('eslint-plugin-playwright')).default,
 				},
 				rules: {
-					'playwright/expect-expect': ERROR,
 					'playwright/max-nested-describe': ERROR,
 					'playwright/missing-playwright-await': ERROR,
 					'playwright/no-focused-test': WARN,
@@ -336,6 +337,9 @@ export const config = [
 					'playwright/prefer-web-first-assertions': ERROR,
 					'playwright/valid-expect-in-promise': ERROR,
 					'playwright/valid-expect': ERROR,
+
+					// playwright/expect-expect - we don't enable this because it's fine to
+					// rely on thrown errors if elements aren't found.
 				},
 			}
 		: null,
