@@ -1981,6 +1981,82 @@ test('every button click updates display', () => {
 })
 ```
 
+### Use Appropriate Queries
+
+Follow the query priority order and avoid using container queries:
+
+```tsx
+// ✅ Good
+screen.getByRole('textbox', { name: /username/i })
+
+// ❌ Avoid
+screen.getByTestId('username')
+container.querySelector('.btn-primary')
+```
+
+### Use Query Variants Correctly
+
+Only use query\* variants for checking non-existence:
+
+```tsx
+// ✅ Good
+expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+
+// ❌ Avoid
+expect(screen.queryByRole('alert')).toBeInTheDocument()
+```
+
+### Use find\* Over waitFor for Elements
+
+Use find\* queries instead of waitFor for elements that may not be immediately
+available:
+
+```tsx
+// ✅ Good
+const submitButton = await screen.findByRole('button', { name: /submit/i })
+
+// ❌ Avoid
+const submitButton = await waitFor(() =>
+	screen.getByRole('button', { name: /submit/i }),
+)
+```
+
+### Avoid Testing Implementation Details
+
+Test components based on how users interact with them, not implementation
+details:
+
+```tsx
+// ✅ Good
+test('User can add items to cart', async () => {
+	render(<ProductList />)
+	await userEvent.click(screen.getByRole('button', { name: /add to cart/i }))
+	await expect(screen.getByText(/1 item in cart/i)).toBeInTheDocument()
+})
+
+// ❌ Avoid
+test('Cart state updates when addToCart is called', () => {
+	const { container } = render(<ProductList />)
+	const addButton = container.querySelector('[data-testid="add-button"]')
+	fireEvent.click(addButton)
+	expect(
+		container.querySelector('[data-testid="cart-count"]'),
+	).toHaveTextContent('1')
+})
+```
+
+### Use userEvent Over fireEvent
+
+Use userEvent over fireEvent for more realistic user interactions:
+
+```tsx
+// ✅ Good
+await userEvent.type(screen.getByRole('textbox'), 'Hello')
+
+// ❌ Avoid
+fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Hello' } })
+```
+
 ## Misc
 
 ### File naming

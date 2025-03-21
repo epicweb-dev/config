@@ -17,6 +17,8 @@ const hasReact = has('react')
 const hasTestingLibrary = has('@testing-library/dom')
 const hasJestDom = has('@testing-library/jest-dom')
 const hasVitest = has('vitest')
+const hasPlaywright = has('playwright')
+
 const vitestFiles = ['**/__tests__/**/*', '**/*.test.*', '**/*.spec.*']
 const testFiles = ['**/tests/**', '**/#tests/**', ...vitestFiles]
 const playwrightFiles = ['**/e2e/**']
@@ -290,9 +292,50 @@ export const config = [
 					vitest: (await import('@vitest/eslint-plugin')).default,
 				},
 				rules: {
+					'vitest/expect-expect': ERROR,
 					// you don't want the editor to autofix this, but we do want to be
 					// made aware of it
 					'vitest/no-focused-tests': [WARN, { fixable: false }],
+					'vitest/no-import-node-test': ERROR,
+					'vitest/no-standalone-expect': ERROR,
+					'vitest/prefer-comparison-matcher': ERROR,
+					'vitest/prefer-equality-matcher': ERROR,
+					'vitest/prefer-to-be': ERROR,
+					'vitest/prefer-to-contain': ERROR,
+					'vitest/prefer-to-have-length': ERROR,
+					'vitest/valid-expect-in-promise': ERROR,
+					'vitest/valid-expect': ERROR,
+				},
+			}
+		: null,
+
+	hasPlaywright
+		? {
+				files: ['**/tests/*.ts?(x)', '**/tests/*.js?(x)'],
+				ignores: testFiles,
+				plugins: {
+					playwright: (await import('eslint-plugin-playwright')).default,
+				},
+				rules: {
+					'playwright/expect-expect': ERROR,
+					'playwright/max-nested-describe': ERROR,
+					'playwright/missing-playwright-await': ERROR,
+					'playwright/no-focused-test': WARN,
+					'playwright/no-page-pause': ERROR,
+					'playwright/no-raw-locators': [WARN, { allowed: ['iframe'] }],
+					'playwright/no-slowed-test': ERROR,
+					'playwright/no-standalone-expect': ERROR,
+					'playwright/no-unsafe-references': ERROR,
+					'playwright/prefer-comparison-matcher': ERROR,
+					'playwright/prefer-equality-matcher': ERROR,
+					'playwright/prefer-native-locators': ERROR,
+					'playwright/prefer-to-be': ERROR,
+					'playwright/prefer-to-contain': ERROR,
+					'playwright/prefer-to-have-count': ERROR,
+					'playwright/prefer-to-have-length': ERROR,
+					'playwright/prefer-web-first-assertions': ERROR,
+					'playwright/valid-expect-in-promise': ERROR,
+					'playwright/valid-expect': ERROR,
 				},
 			}
 		: null,
