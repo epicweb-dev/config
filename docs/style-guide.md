@@ -1545,308 +1545,6 @@ try {
 }
 ```
 
-### Testing
-
-#### Test User Interactions
-
-Test components based on how users actually interact with them, not
-implementation details:
-
-> The more your tests resemble the way your software is used, the more
-> confidence they can give you. -
-> [Kent C. Dodds](https://x.com/kentcdodds/status/977018512689455106)
-
-```tsx
-// ✅ Good
-test('User can add items to cart', async () => {
-	render(<ProductList />)
-	await userEvent.click(screen.getByRole('button', { name: /add to cart/i }))
-	await expect(screen.getByText(/1 item in cart/i)).toBeInTheDocument()
-})
-
-// ❌ Avoid
-test('Cart state updates when addToCart is called', () => {
-	const { container } = render(<ProductList />)
-	const addButton = container.querySelector('[data-testid="add-button"]')
-	fireEvent.click(addButton)
-	expect(
-		container.querySelector('[data-testid="cart-count"]'),
-	).toHaveTextContent('1')
-})
-```
-
-#### Avoid Unnecessary Mocks
-
-Only mock what's absolutely necessary. Most of the time, you don't need to mock
-any of your own code or even dependency code.
-
-```tsx
-// ✅ Good
-function Greeting({ name }: { name: string }) {
-	return <div>Hello {name}</div>
-}
-
-test('Greeting displays the name', () => {
-	render(<Greeting name="Kent" />)
-	expect(screen.getByText('Hello Kent')).toBeInTheDocument()
-})
-
-// ❌ Avoid
-test('Greeting displays the name', () => {
-	const mockName = 'Kent'
-	vi.mock('./greeting.tsx', () => ({
-		Greeting: () => <div>Hello {mockName}</div>,
-	}))
-	render(<Greeting name={mockName} />)
-	expect(container).toHaveTextContent('Hello Kent')
-})
-```
-
-#### Mock External Services
-
-Use MSW (Mock Service Worker) to mock external services. This allows you to test
-your application's integration with external APIs without actually making
-network requests.
-
-```tsx
-// ✅ Good
-import { setupServer } from 'msw/node'
-import { http } from 'msw'
-
-const server = setupServer(
-	http.get('/api/user', async ({ request }) => {
-		return HttpResponse.json({
-			name: 'Kent',
-			role: 'admin',
-		})
-	}),
-)
-
-test('User data is fetched and displayed', async () => {
-	render(<UserProfile />)
-	await expect(await screen.findByText('Kent')).toBeInTheDocument()
-})
-
-// ❌ Avoid
-test('User data is fetched and displayed', async () => {
-	vi.spyOn(global, 'fetch').mockResolvedValue({
-		json: () => Promise.resolve({ name: 'Kent', role: 'admin' }),
-	})
-	render(<UserProfile />)
-	await expect(await screen.findByText('Kent')).toBeInTheDocument()
-})
-```
-
-#### Use Test Function
-
-Use the `test` function instead of `describe` and `it`. This makes tests more
-straightforward and easier to understand.
-
-```tsx
-// ✅ Good
-test('User can log in with valid credentials', async () => {
-	render(<LoginForm />)
-	await userEvent.type(
-		screen.getByRole('textbox', { name: /email/i }),
-		'kent@example.com',
-	)
-	await userEvent.type(
-		screen.getByRole('textbox', { name: /password/i }),
-		'password123',
-	)
-	await userEvent.click(screen.getByRole('button', { name: /login/i }))
-	await expect(await screen.findByText('Welcome back!')).toBeInTheDocument()
-})
-
-// ❌ Avoid
-describe('LoginForm', () => {
-	it('should allow user to log in with valid credentials', async () => {
-		render(<LoginForm />)
-		await userEvent.type(
-			screen.getByRole('textbox', { name: /email/i }),
-			'kent@example.com',
-		)
-		await userEvent.type(
-			screen.getByRole('textbox', { name: /password/i }),
-			'password123',
-		)
-		await userEvent.click(screen.getByRole('button', { name: /login/i }))
-		await expect(await screen.findByText('Welcome back!')).toBeInTheDocument()
-	})
-})
-```
-
-#### Avoid Nesting Tests
-
-Keep your tests flat. Nesting makes tests harder to understand and maintain.
-
-```tsx
-// ✅ Good
-test('User can log in', async () => {
-	render(<LoginForm />)
-	await userEvent.type(
-		screen.getByRole('textbox', { name: /email/i }),
-		'kent@example.com',
-	)
-	await userEvent.type(
-		screen.getByRole('textbox', { name: /password/i }),
-		'password123',
-	)
-	await userEvent.click(screen.getByRole('button', { name: /login/i }))
-	await expect(await screen.findByText('Welcome back!')).toBeInTheDocument()
-})
-
-// ❌ Avoid
-describe('LoginForm', () => {
-	describe('when user enters valid credentials', () => {
-		it('should show welcome message', async () => {
-			render(<LoginForm />)
-			await userEvent.type(
-				screen.getByRole('textbox', { name: /email/i }),
-				'kent@example.com',
-			)
-			await userEvent.type(
-				screen.getByRole('textbox', { name: /password/i }),
-				'password123',
-			)
-			await userEvent.click(screen.getByRole('button', { name: /login/i }))
-			await expect(await screen.findByText('Welcome back!')).toBeInTheDocument()
-		})
-	})
-})
-```
-
-#### Avoid shared setup/teardown variables
-
-```tsx
-// ✅ Good
-test('renders a greeting', () => {
-	render(<Greeting name="Kent" />)
-	expect(screen.getByText('Hello Kent')).toBeInTheDocument()
-})
-
-// ❌ Avoid
-let utils
-beforeEach(() => {
-	utils = render(<Greeting name="Kent" />)
-})
-
-test('renders a greeting', () => {
-	expect(utils.getByText('Hello Kent')).toBeInTheDocument()
-})
-```
-
-> **Note**: Most of the time your individual tests can avoid the use of
-> `beforeEach` and `afterEach` altogether and it's only global setup that needs
-> it (like mocking out `console.log` or setting up a mock server).
-
-#### Avoid Testing Implementation Details
-
-Test your components based on how they're used, not how they're implemented.
-
-```tsx
-// ✅ Good
-function Counter() {
-	const [count, setCount] = useState(0)
-	return <button onClick={() => setCount((c) => c + 1)}>Count: {count}</button>
-}
-
-test('Counter increments when clicked', async () => {
-	render(<Counter />)
-	const button = screen.getByRole('button')
-	await userEvent.click(button)
-	expect(getByText('Count: 1')).toBeInTheDocument()
-})
-
-// ❌ Avoid
-test('Counter increments when clicked', () => {
-	const { container } = render(<Counter />)
-	const button = container.querySelector('button')
-	fireEvent.click(button)
-	const state = container.querySelector('[data-testid="count"]')
-	expect(state).toHaveTextContent('1')
-})
-```
-
-#### Keep Assertions Specific
-
-Make your assertions as specific as possible to catch the exact behavior you're
-testing.
-
-```tsx
-// ✅ Good
-test('Form shows error for invalid email', async () => {
-	render(<LoginForm />)
-	await userEvent.type(
-		screen.getByRole('textbox', { name: /email/i }),
-		'invalid-email',
-	)
-	await userEvent.click(screen.getByRole('button', { name: /login/i }))
-	await expect(
-		await screen.findByText(/enter a valid email/i),
-	).toBeInTheDocument()
-})
-
-// ❌ Avoid
-test('Form shows error for invalid email', async () => {
-	const { container } = render(<LoginForm />)
-	await userEvent.type(
-		screen.getByRole('textbox', { name: /email/i }),
-		'invalid-email',
-	)
-	await userEvent.click(screen.getByRole('button', { name: /login/i }))
-	expect(container).toMatchSnapshot()
-})
-```
-
-#### Follow the Testing Trophy
-
-Prioritize your tests according to the Testing Trophy:
-
-1. Static Analysis (TypeScript, ESLint)
-2. Unit Tests (Pure Functions)
-3. Integration Tests (Component Integration)
-4. E2E Tests (Critical User Flows)
-
-```tsx
-// ✅ Good
-// 1. Static Analysis
-function add(a: number, b: number): number {
-	return a + b
-}
-
-// 2. Unit Tests
-test('add function adds two numbers', () => {
-	expect(add(1, 2)).toBe(3)
-})
-
-// 3. Integration Tests
-test('Calculator component adds numbers', async () => {
-	render(<Calculator />)
-	await userEvent.click(screen.getByRole('button', { name: '1' }))
-	await userEvent.click(screen.getByRole('button', { name: '+' }))
-	await userEvent.click(screen.getByRole('button', { name: '2' }))
-	await userEvent.click(screen.getByRole('button', { name: '=' }))
-	expect(getByText('3')).toBeInTheDocument()
-})
-
-// 4. E2E Tests (using Playwright)
-await page.goto('/calculator')
-await expect(page.getByRole('button', { name: '0' })).toBeInTheDocument()
-await page.getByRole('button', { name: '1' }).click()
-await page.getByRole('button', { name: '+' }).click()
-await page.getByRole('button', { name: '2' }).click()
-await page.getByRole('button', { name: '=' }).click()
-await expect(page.getByRole('button', { name: '3' })).toBeInTheDocument()
-
-// ❌ Avoid
-// Don't write E2E tests for everything
-test('every button click updates display', () => {
-	render(<Calculator />)
-	// Testing every possible button combination...
-})
-```
-
 ## React
 
 ### Avoid useEffect
@@ -1979,6 +1677,308 @@ function App({ user }: { user: User }) {
 		</div>
 	)
 }
+```
+
+## Testing
+
+### Test User Interactions
+
+Test components based on how users actually interact with them, not
+implementation details:
+
+> The more your tests resemble the way your software is used, the more
+> confidence they can give you. -
+> [Kent C. Dodds](https://x.com/kentcdodds/status/977018512689455106)
+
+```tsx
+// ✅ Good
+test('User can add items to cart', async () => {
+	render(<ProductList />)
+	await userEvent.click(screen.getByRole('button', { name: /add to cart/i }))
+	await expect(screen.getByText(/1 item in cart/i)).toBeInTheDocument()
+})
+
+// ❌ Avoid
+test('Cart state updates when addToCart is called', () => {
+	const { container } = render(<ProductList />)
+	const addButton = container.querySelector('[data-testid="add-button"]')
+	fireEvent.click(addButton)
+	expect(
+		container.querySelector('[data-testid="cart-count"]'),
+	).toHaveTextContent('1')
+})
+```
+
+### Avoid Unnecessary Mocks
+
+Only mock what's absolutely necessary. Most of the time, you don't need to mock
+any of your own code or even dependency code.
+
+```tsx
+// ✅ Good
+function Greeting({ name }: { name: string }) {
+	return <div>Hello {name}</div>
+}
+
+test('Greeting displays the name', () => {
+	render(<Greeting name="Kent" />)
+	expect(screen.getByText('Hello Kent')).toBeInTheDocument()
+})
+
+// ❌ Avoid
+test('Greeting displays the name', () => {
+	const mockName = 'Kent'
+	vi.mock('./greeting.tsx', () => ({
+		Greeting: () => <div>Hello {mockName}</div>,
+	}))
+	render(<Greeting name={mockName} />)
+	expect(container).toHaveTextContent('Hello Kent')
+})
+```
+
+### Mock External Services
+
+Use MSW (Mock Service Worker) to mock external services. This allows you to test
+your application's integration with external APIs without actually making
+network requests.
+
+```tsx
+// ✅ Good
+import { setupServer } from 'msw/node'
+import { http } from 'msw'
+
+const server = setupServer(
+	http.get('/api/user', async ({ request }) => {
+		return HttpResponse.json({
+			name: 'Kent',
+			role: 'admin',
+		})
+	}),
+)
+
+test('User data is fetched and displayed', async () => {
+	render(<UserProfile />)
+	await expect(await screen.findByText('Kent')).toBeInTheDocument()
+})
+
+// ❌ Avoid
+test('User data is fetched and displayed', async () => {
+	vi.spyOn(global, 'fetch').mockResolvedValue({
+		json: () => Promise.resolve({ name: 'Kent', role: 'admin' }),
+	})
+	render(<UserProfile />)
+	await expect(await screen.findByText('Kent')).toBeInTheDocument()
+})
+```
+
+### Use Test Function
+
+Use the `test` function instead of `describe` and `it`. This makes tests more
+straightforward and easier to understand.
+
+```tsx
+// ✅ Good
+test('User can log in with valid credentials', async () => {
+	render(<LoginForm />)
+	await userEvent.type(
+		screen.getByRole('textbox', { name: /email/i }),
+		'kent@example.com',
+	)
+	await userEvent.type(
+		screen.getByRole('textbox', { name: /password/i }),
+		'password123',
+	)
+	await userEvent.click(screen.getByRole('button', { name: /login/i }))
+	await expect(await screen.findByText('Welcome back!')).toBeInTheDocument()
+})
+
+// ❌ Avoid
+describe('LoginForm', () => {
+	it('should allow user to log in with valid credentials', async () => {
+		render(<LoginForm />)
+		await userEvent.type(
+			screen.getByRole('textbox', { name: /email/i }),
+			'kent@example.com',
+		)
+		await userEvent.type(
+			screen.getByRole('textbox', { name: /password/i }),
+			'password123',
+		)
+		await userEvent.click(screen.getByRole('button', { name: /login/i }))
+		await expect(await screen.findByText('Welcome back!')).toBeInTheDocument()
+	})
+})
+```
+
+### Avoid Nesting Tests
+
+Keep your tests flat. Nesting makes tests harder to understand and maintain.
+
+```tsx
+// ✅ Good
+test('User can log in', async () => {
+	render(<LoginForm />)
+	await userEvent.type(
+		screen.getByRole('textbox', { name: /email/i }),
+		'kent@example.com',
+	)
+	await userEvent.type(
+		screen.getByRole('textbox', { name: /password/i }),
+		'password123',
+	)
+	await userEvent.click(screen.getByRole('button', { name: /login/i }))
+	await expect(await screen.findByText('Welcome back!')).toBeInTheDocument()
+})
+
+// ❌ Avoid
+describe('LoginForm', () => {
+	describe('when user enters valid credentials', () => {
+		it('should show welcome message', async () => {
+			render(<LoginForm />)
+			await userEvent.type(
+				screen.getByRole('textbox', { name: /email/i }),
+				'kent@example.com',
+			)
+			await userEvent.type(
+				screen.getByRole('textbox', { name: /password/i }),
+				'password123',
+			)
+			await userEvent.click(screen.getByRole('button', { name: /login/i }))
+			await expect(await screen.findByText('Welcome back!')).toBeInTheDocument()
+		})
+	})
+})
+```
+
+### Avoid shared setup/teardown variables
+
+```tsx
+// ✅ Good
+test('renders a greeting', () => {
+	render(<Greeting name="Kent" />)
+	expect(screen.getByText('Hello Kent')).toBeInTheDocument()
+})
+
+// ❌ Avoid
+let utils
+beforeEach(() => {
+	utils = render(<Greeting name="Kent" />)
+})
+
+test('renders a greeting', () => {
+	expect(utils.getByText('Hello Kent')).toBeInTheDocument()
+})
+```
+
+> **Note**: Most of the time your individual tests can avoid the use of
+> `beforeEach` and `afterEach` altogether and it's only global setup that needs
+> it (like mocking out `console.log` or setting up a mock server).
+
+### Avoid Testing Implementation Details
+
+Test your components based on how they're used, not how they're implemented.
+
+```tsx
+// ✅ Good
+function Counter() {
+	const [count, setCount] = useState(0)
+	return <button onClick={() => setCount((c) => c + 1)}>Count: {count}</button>
+}
+
+test('Counter increments when clicked', async () => {
+	render(<Counter />)
+	const button = screen.getByRole('button')
+	await userEvent.click(button)
+	expect(getByText('Count: 1')).toBeInTheDocument()
+})
+
+// ❌ Avoid
+test('Counter increments when clicked', () => {
+	const { container } = render(<Counter />)
+	const button = container.querySelector('button')
+	fireEvent.click(button)
+	const state = container.querySelector('[data-testid="count"]')
+	expect(state).toHaveTextContent('1')
+})
+```
+
+### Keep Assertions Specific
+
+Make your assertions as specific as possible to catch the exact behavior you're
+testing.
+
+```tsx
+// ✅ Good
+test('Form shows error for invalid email', async () => {
+	render(<LoginForm />)
+	await userEvent.type(
+		screen.getByRole('textbox', { name: /email/i }),
+		'invalid-email',
+	)
+	await userEvent.click(screen.getByRole('button', { name: /login/i }))
+	await expect(
+		await screen.findByText(/enter a valid email/i),
+	).toBeInTheDocument()
+})
+
+// ❌ Avoid
+test('Form shows error for invalid email', async () => {
+	const { container } = render(<LoginForm />)
+	await userEvent.type(
+		screen.getByRole('textbox', { name: /email/i }),
+		'invalid-email',
+	)
+	await userEvent.click(screen.getByRole('button', { name: /login/i }))
+	expect(container).toMatchSnapshot()
+})
+```
+
+### Follow the Testing Trophy
+
+Prioritize your tests according to the Testing Trophy:
+
+1. Static Analysis (TypeScript, ESLint)
+2. Unit Tests (Pure Functions)
+3. Integration Tests (Component Integration)
+4. E2E Tests (Critical User Flows)
+
+```tsx
+// ✅ Good
+// 1. Static Analysis
+function add(a: number, b: number): number {
+	return a + b
+}
+
+// 2. Unit Tests
+test('add function adds two numbers', () => {
+	expect(add(1, 2)).toBe(3)
+})
+
+// 3. Integration Tests
+test('Calculator component adds numbers', async () => {
+	render(<Calculator />)
+	await userEvent.click(screen.getByRole('button', { name: '1' }))
+	await userEvent.click(screen.getByRole('button', { name: '+' }))
+	await userEvent.click(screen.getByRole('button', { name: '2' }))
+	await userEvent.click(screen.getByRole('button', { name: '=' }))
+	expect(getByText('3')).toBeInTheDocument()
+})
+
+// 4. E2E Tests (using Playwright)
+await page.goto('/calculator')
+await expect(page.getByRole('button', { name: '0' })).toBeInTheDocument()
+await page.getByRole('button', { name: '1' }).click()
+await page.getByRole('button', { name: '+' }).click()
+await page.getByRole('button', { name: '2' }).click()
+await page.getByRole('button', { name: '=' }).click()
+await expect(page.getByRole('button', { name: '3' })).toBeInTheDocument()
+
+// ❌ Avoid
+// Don't write E2E tests for everything
+test('every button click updates display', () => {
+	render(<Calculator />)
+	// Testing every possible button combination...
+})
 ```
 
 ## Misc
