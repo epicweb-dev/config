@@ -21,7 +21,7 @@ const hasPlaywright = has('playwright')
 
 const vitestFiles = ['**/__tests__/**/*', '**/*.test.*', '**/*.spec.*']
 const testFiles = ['**/tests/**', '**/#tests/**', ...vitestFiles]
-const playwrightFiles = ['**/e2e/**']
+const playwrightFiles = ['**/tests/e2e/**']
 
 export const config = [
 	{
@@ -313,8 +313,7 @@ export const config = [
 
 	hasPlaywright
 		? {
-				files: ['**/tests/*.ts?(x)', '**/tests/*.js?(x)'],
-				ignores: testFiles,
+				files: [...playwrightFiles],
 				plugins: {
 					playwright: (await import('eslint-plugin-playwright')).default,
 				},
