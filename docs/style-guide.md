@@ -1699,7 +1699,7 @@ describe('LoginForm', () => {
 })
 ```
 
-### Avoid Nesting Tests
+### [Avoid Nesting Tests](https://kentcdodds.com/blog/avoid-nesting-when-youre-testing)
 
 Keep your tests flat. Nesting makes tests harder to understand and maintain.
 
