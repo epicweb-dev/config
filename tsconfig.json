@@ -1,7 +1,4 @@
 {
 	"extends": "./typescript.json",
-	"include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-	"compilerOptions": {
-		"types": ["./reset.d.ts"]
-	}
+	"include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
 }
