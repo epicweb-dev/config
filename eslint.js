@@ -35,6 +35,7 @@ export const config = [
 			'**/server-build/**',
 			'**/dist/**',
 			'**/coverage/**',
+			'**/*.tsbuildinfo',
 		],
 	},
 
