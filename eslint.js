@@ -297,7 +297,6 @@ export const config = [
 					// made aware of it
 					'vitest/no-focused-tests': [WARN, { fixable: false }],
 					'vitest/no-import-node-test': ERROR,
-					'vitest/no-standalone-expect': ERROR,
 					'vitest/prefer-comparison-matcher': ERROR,
 					'vitest/prefer-equality-matcher': ERROR,
 					'vitest/prefer-to-be': ERROR,
