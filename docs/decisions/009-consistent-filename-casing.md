@@ -16,7 +16,7 @@ by a casing different from the casing on disk.
 
 ## Decision
 
-set [forceConsistentCasingInFileNames](https://www.typescriptlang.org/tsconfig/forceConsistentCasingInFileNames.html) to true in Typescript
+Set [`forceConsistentCasingInFileNames`](https://www.typescriptlang.org/tsconfig/forceConsistentCasingInFileNames.html) to true in Typescript
 
 ## Consequences
 
