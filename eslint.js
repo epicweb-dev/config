@@ -18,6 +18,8 @@ const hasTestingLibrary = has('@testing-library/dom')
 const hasJestDom = has('@testing-library/jest-dom')
 const hasVitest = has('vitest')
 const hasPlaywright = has('playwright')
+const hasReactQuery = has('@tanstack/react-query')
+const hasStorybook = has('@storybook/react')
 
 const vitestFiles = ['**/__tests__/**/*', '**/*.test.*', '**/*.spec.*']
 const testFiles = ['**/tests/**', '**/#tests/**', ...vitestFiles]
@@ -36,6 +38,7 @@ export const config = [
 			'**/dist/**',
 			'**/coverage/**',
 			'**/*.tsbuildinfo',
+			'**/storybook-static/**'
 		],
 	},
 
@@ -339,6 +342,22 @@ export const config = [
 
 					// playwright/expect-expect - we don't enable this because it's fine to
 					// rely on thrown errors if elements aren't found.
+				},
+			}
+		: null,
+	hasReactQuery
+		? {
+				plugins: {
+					'@tanstack/query': (await import('@tanstack/eslint-plugin-query'))
+						.plugin,
+				},
+			}
+		: null,
+
+	hasStorybook
+		? {
+				plugins: {
+					storybook: (await import('eslint-plugin-storybook')).default,
 				},
 			}
 		: null,
