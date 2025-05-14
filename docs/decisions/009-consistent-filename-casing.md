@@ -1,9 +1,8 @@
-# Title
+# Consistent Filename Casing (TS)
 
 Date: 2025-05-14
 
 Status: accepted
-[0005](0005-example.md)
 
 ## Context
 
