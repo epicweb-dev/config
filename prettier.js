@@ -1,3 +1,14 @@
+const has = (pkg) => {
+	try {
+		import.meta.resolve(pkg, import.meta.url)
+		return true
+	} catch {
+		return false
+	}
+}
+
+const hasTailwind = has('tailwindcss')
+
 /** @type {import("prettier").Options} */
 export const config = {
 	arrowParens: 'always',
@@ -39,9 +50,11 @@ export const config = {
 			},
 		},
 	],
-	plugins: ['prettier-plugin-tailwindcss'],
-	tailwindAttributes: ['class', 'className', 'ngClass', '.*[cC]lassName'],
-	tailwindFunctions: ['clsx', 'cn', 'cva'],
+	...(hasTailwind && {
+		plugins: ['prettier-plugin-tailwindcss'],
+		tailwindAttributes: ['class', 'className', 'ngClass', '.*[cC]lassName'],
+		tailwindFunctions: ['clsx', 'cn', 'cva'],
+	}),
 }
 
 // this is for backward compatibility
