@@ -1,16 +1,8 @@
 import globals from 'globals'
+import { has } from './utils.js'
 
 const ERROR = 'error'
 const WARN = 'warn'
-
-const has = (pkg) => {
-	try {
-		import.meta.resolve(pkg, import.meta.url)
-		return true
-	} catch {
-		return false
-	}
-}
 
 const hasTypeScript = has('typescript')
 const hasReact = has('react')
