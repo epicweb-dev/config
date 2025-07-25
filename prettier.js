@@ -1,11 +1,4 @@
-const has = (pkg) => {
-	try {
-		import.meta.resolve(pkg, import.meta.url)
-		return true
-	} catch {
-		return false
-	}
-}
+import { has } from './utils.js'
 
 const hasTailwind = has('tailwindcss')
 
