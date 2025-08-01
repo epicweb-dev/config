@@ -30,7 +30,7 @@ export const config = [
 			'**/*.tsbuildinfo',
 			'**/.react-router/**',
 			'**/.wrangler/**',
-			'worker-configuration.d.ts',
+			'**/worker-configuration.d.ts',
 		],
 	},
 
