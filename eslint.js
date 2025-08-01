@@ -28,6 +28,9 @@ export const config = [
 			'**/dist/**',
 			'**/coverage/**',
 			'**/*.tsbuildinfo',
+			'**/.react-router/**',
+			'**/.wrangler/**',
+			'worker-configuration.d.ts',
 		],
 	},
 
