@@ -1,7 +1,7 @@
 <div>
   <h1 align="center"><a href="https://npm.im/@epic-web/config">👮 @epic-web/config</a></h1>
   <strong>
-    Reasonable ESLint, Prettier, and TypeScript configs for epic web devs
+    Reasonable ESLint, Oxlint, Prettier, and TypeScript configs for epic web devs
   </strong>
   <p>
     This makes assumptions about the way you prefer to develop software and gives you configurations that will actually help you in your development.
@@ -138,6 +138,34 @@ There are endless rules we could enable. However, we want to keep our
 configurations minimal and only enable rules that catch real problems (the kind
 that are likely to happen). This keeps our linting faster and reduces the number
 of false positives.
+
+### Oxlint
+
+Create a `.oxlintrc.json` file in your project root with the following content:
+
+```json
+{
+	"extends": ["./node_modules/@epic-web/config/oxlint-config.json"]
+}
+```
+
+Note: `typescript/no-misused-promises` and `typescript/no-floating-promises` are
+type-aware in Oxlint and require the type-aware setup described in the Oxlint
+docs.
+
+#### Unsupported rules
+
+The following ESLint rules/plugins from this config are not yet available in
+Oxlint, so they are intentionally omitted:
+
+- `import/order`
+- `react-hooks/rules-of-hooks`
+- `react-hooks/exhaustive-deps`
+- `@typescript-eslint/no-unused-vars` (falls back to `eslint/no-unused-vars`)
+- `testing-library/*`
+- `jest-dom/*`
+- `vitest/*` (except `vitest/no-import-node-test`)
+- `playwright/*`
 
 ## License
 
