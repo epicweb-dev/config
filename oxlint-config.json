@@ -32,7 +32,7 @@
 		"import/no-duplicates": [
 			"warn",
 			{
-				"preferInline": true
+				"prefer-inline": true
 			}
 		]
 	},
