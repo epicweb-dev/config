@@ -46,30 +46,12 @@
 		{
 			"files": ["**/*.js", "**/*.jsx"],
 			"rules": {
-				"eslint/no-undef": "error",
-				"eslint/no-unused-vars": [
-					"warn",
-					{
-						"args": "after-used",
-						"argsIgnorePattern": "^_",
-						"ignoreRestSiblings": true,
-						"varsIgnorePattern": "^ignored"
-					}
-				]
+				"eslint/no-undef": "error"
 			}
 		},
 		{
 			"files": ["**/*.ts", "**/*.tsx"],
 			"rules": {
-				"eslint/no-unused-vars": [
-					"warn",
-					{
-						"args": "after-used",
-						"argsIgnorePattern": "^_",
-						"ignoreRestSiblings": true,
-						"varsIgnorePattern": "^ignored"
-					}
-				],
 				"import/consistent-type-specifier-style": ["warn", "prefer-inline"],
 				"typescript/consistent-type-imports": [
 					"warn",
@@ -91,6 +73,15 @@
 		{
 			"files": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
 			"rules": {
+				"eslint/no-unused-vars": [
+					"warn",
+					{
+						"args": "after-used",
+						"argsIgnorePattern": "^_",
+						"ignoreRestSiblings": true,
+						"varsIgnorePattern": "^ignored"
+					}
+				],
 				"eslint/no-restricted-imports": [
 					"error",
 					{
