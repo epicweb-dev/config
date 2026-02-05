@@ -25,7 +25,7 @@
 		"eslint/no-warning-comments": [
 			"error",
 			{
-				"terms": ["fixme"],
+				"terms": ["FIXME"],
 				"location": "anywhere"
 			}
 		],
