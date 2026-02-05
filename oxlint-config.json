@@ -1,0 +1,124 @@
+{
+	"$schema": "./node_modules/oxlint/configuration_schema.json",
+	"env": {
+		"browser": true,
+		"node": true
+	},
+	"plugins": ["import", "react", "typescript", "vitest"],
+	"ignorePatterns": [
+		"**/.cache/**",
+		"**/node_modules/**",
+		"**/build/**",
+		"**/public/**",
+		"**/*.json",
+		"**/playwright-report/**",
+		"**/server-build/**",
+		"**/dist/**",
+		"**/coverage/**",
+		"**/*.tsbuildinfo",
+		"**/.react-router/**",
+		"**/.wrangler/**",
+		"**/worker-configuration.d.ts"
+	],
+	"rules": {
+		"eslint/no-unexpected-multiline": "error",
+		"eslint/no-warning-comments": [
+			"error",
+			{
+				"terms": ["FIXME"],
+				"location": "anywhere"
+			}
+		],
+		"import/no-duplicates": [
+			"warn",
+			{
+				"prefer-inline": true
+			}
+		]
+	},
+	"overrides": [
+		{
+			"files": ["**/*.tsx", "**/*.jsx"],
+			"rules": {
+				"react/jsx-key": "warn"
+			}
+		},
+		{
+			"files": ["**/*.js", "**/*.jsx"],
+			"rules": {
+				"eslint/no-undef": "error"
+			}
+		},
+		{
+			"files": ["**/*.ts", "**/*.tsx"],
+			"rules": {
+				"import/consistent-type-specifier-style": ["warn", "prefer-inline"],
+				"typescript/consistent-type-imports": [
+					"warn",
+					{
+						"prefer": "type-imports",
+						"disallowTypeAnnotations": true,
+						"fixStyle": "inline-type-imports"
+					}
+				],
+				"typescript/no-misused-promises": [
+					"error",
+					{
+						"checksVoidReturn": false
+					}
+				],
+				"typescript/no-floating-promises": "error"
+			}
+		},
+		{
+			"files": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+			"rules": {
+				"eslint/no-unused-vars": [
+					"warn",
+					{
+						"args": "after-used",
+						"argsIgnorePattern": "^_",
+						"ignoreRestSiblings": true,
+						"varsIgnorePattern": "^ignored"
+					}
+				],
+				"eslint/no-restricted-imports": [
+					"error",
+					{
+						"patterns": [
+							{
+								"group": [
+									"**/tests/**",
+									"**/#tests/**",
+									"**/__tests__/**/*",
+									"**/*.test.*",
+									"**/*.spec.*"
+								],
+								"message": "Do not import test files in source files"
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"files": [
+				"**/tests/**",
+				"**/#tests/**",
+				"**/__tests__/**/*",
+				"**/*.test.*",
+				"**/*.spec.*"
+			],
+			"rules": {
+				"eslint/no-restricted-imports": "off",
+				"vitest/no-import-node-test": "error"
+			}
+		},
+		{
+			"files": ["**/tests/e2e/**"],
+			"rules": {
+				"vitest/no-import-node-test": "off"
+			}
+		}
+	]
+}
