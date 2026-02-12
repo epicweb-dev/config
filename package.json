@@ -26,10 +26,11 @@
   "prettier": "./prettier.js",
   "scripts": {
     "format": "prettier . --write",
+    "format:check": "prettier . --check",
     "lint": "eslint .",
     "audit": "npm audit --audit-level=moderate",
     "typecheck": "tsc",
-    "validate": "run-p -l format lint typecheck audit"
+    "validate": "run-p -l format:check lint typecheck audit"
   },
   "keywords": [
     "config",
