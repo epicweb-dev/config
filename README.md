@@ -12,8 +12,8 @@
 npm install @epic-web/config
 ```
 
-> Requires Node.js `>=20.19.0`.
-> Uses npm `10.9.4` (`packageManager` pinned in `package.json`).
+> Requires Node.js `>=20.19.0`. Uses npm `10.9.4` (`packageManager` pinned in
+> `package.json`).
 
 <div align="center">
   <a
@@ -49,9 +49,9 @@ wasting time.
 ## Decisions
 
 You can learn about the different decisions made for this project in
-[the decision docs](./docs/decisions).
-We also automate dependency maintenance with Dependabot (see decision 012).
-PRs are protected with a dependency review workflow (see decision 015).
+[the decision docs](./docs/decisions). We also automate dependency maintenance
+with Dependabot (see decision 012). PRs are protected with a dependency review
+workflow (see decision 015).
 
 ## Usage
 

@@ -5,7 +5,7 @@ updates:
     schedule:
       interval: weekly
       day: monday
-      time: "07:00"
+      time: '07:00'
       timezone: UTC
     open-pull-requests-limit: 5
     commit-message:
@@ -13,7 +13,7 @@ updates:
     groups:
       npm-dependencies:
         patterns:
-          - "*"
+          - '*'
     labels:
       - dependencies
 
@@ -22,7 +22,7 @@ updates:
     schedule:
       interval: weekly
       day: monday
-      time: "07:30"
+      time: '07:30'
       timezone: UTC
     open-pull-requests-limit: 5
     commit-message:
@@ -30,6 +30,6 @@ updates:
     groups:
       workflow-actions:
         patterns:
-          - "*"
+          - '*'
     labels:
       - dependencies
