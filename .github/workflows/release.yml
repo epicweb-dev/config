@@ -27,7 +27,7 @@ jobs:
       - name: 📥 Download deps
         uses: bahmutov/npm-install@3e063b974f0d209807684aa23e534b3dde517fd9 # v1.11.2
         with:
-          useLockFile: false
+          useLockFile: true
 
       - name: 🔍 Validate
         run: npm run validate
@@ -52,7 +52,7 @@ jobs:
       - name: 📥 Download deps
         uses: bahmutov/npm-install@3e063b974f0d209807684aa23e534b3dde517fd9 # v1.11.2
         with:
-          useLockFile: false
+          useLockFile: true
 
       - name: 🚀 Release
         uses: cycjimmy/semantic-release-action@b12c8f6015dc215fe37bc154d4ad456dd3833c90 # v6.0.0
