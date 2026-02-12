@@ -33,3 +33,8 @@ Instead, in this project, we'll define breaking changes as:
 This means most version bumps will be patch/minor version bumps. Major version
 bumps will happen if we change the name of a file, what the config module
 exports, or the minimum version of Node/TypeScript that's supported.
+
+Recent example:
+
+- [010-minimum-node-version](./010-minimum-node-version.md) records raising the
+  minimum Node.js version and should be treated as a major-version boundary.
