@@ -8,6 +8,7 @@
   "description": "Reasonable ESLint configs for epic web devs",
   "main": "index.js",
   "type": "module",
+  "packageManager": "npm@10.9.4",
   "engines": {
     "node": ">=20.19.0"
   },
