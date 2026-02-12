@@ -27,6 +27,7 @@
   "scripts": {
     "format": "prettier . --write",
     "lint": "eslint .",
+    "audit": "npm audit --audit-level=moderate",
     "typecheck": "tsc",
     "validate": "run-p -l format lint typecheck"
   },
