@@ -12,6 +12,8 @@
 npm install @epic-web/config
 ```
 
+> Requires Node.js `>=20.19.0`.
+
 <div align="center">
   <a
     alt="Epic Web logo"
