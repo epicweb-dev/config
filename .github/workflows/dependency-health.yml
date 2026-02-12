@@ -1,0 +1,29 @@
+name: dependency-health
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  dependency-health:
+    name: 📦 Dependency Health
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version-file: node-version
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: 📥 Install deps
+        run: npm ci
+
+      - name: 📦 Check dependency health
+        run: npm run deps:check

@@ -28,6 +28,8 @@
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "lint": "eslint .",
+    "deps:outdated": "npm outdated --long",
+    "deps:check": "run-s audit deps:outdated",
     "audit": "npm audit --audit-level=moderate",
     "typecheck": "tsc",
     "validate": "run-p -l format:check lint typecheck audit"
