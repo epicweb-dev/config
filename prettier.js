@@ -32,6 +32,12 @@ export const config = {
 			},
 		},
 		{
+			files: ['**/package-lock.json'],
+			options: {
+				useTabs: false,
+			},
+		},
+		{
 			files: ['**/*.mdx'],
 			options: {
 				// This stinks, if you don't do this, then an inline component on the
