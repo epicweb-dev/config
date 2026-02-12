@@ -51,6 +51,7 @@ wasting time.
 You can learn about the different decisions made for this project in
 [the decision docs](./docs/decisions).
 We also automate dependency maintenance with Dependabot (see decision 012).
+PRs are protected with a dependency review workflow (see decision 015).
 
 ## Usage
 
