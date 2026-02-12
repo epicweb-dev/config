@@ -23,6 +23,8 @@ jobs:
         uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         with:
           node-version-file: node-version
+          cache: npm
+          cache-dependency-path: package-lock.json
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@3e063b974f0d209807684aa23e534b3dde517fd9 # v1.11.2
@@ -48,6 +50,8 @@ jobs:
         uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         with:
           node-version-file: node-version
+          cache: npm
+          cache-dependency-path: package-lock.json
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@3e063b974f0d209807684aa23e534b3dde517fd9 # v1.11.2
