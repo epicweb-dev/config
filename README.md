@@ -13,6 +13,7 @@ npm install @epic-web/config
 ```
 
 > Requires Node.js `>=20.19.0`.
+> Uses npm `10.9.4` (`packageManager` pinned in `package.json`).
 
 <div align="center">
   <a
