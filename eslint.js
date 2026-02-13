@@ -1,6 +1,6 @@
 import globals from 'globals'
-import { has } from './utils.js'
 import noManualDispose from './eslint-rules/no-manual-dispose.js'
+import { has } from './utils.js'
 
 const ERROR = 'error'
 const WARN = 'warn'
