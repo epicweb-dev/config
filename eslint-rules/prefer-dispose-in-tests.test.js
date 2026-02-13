@@ -1,7 +1,7 @@
 import { RuleTester } from 'eslint'
 import { afterEach, beforeEach, describe, it } from 'vitest'
 
-import { preferDisposeInTestsRule } from '../eslint-plugin-epic-web.js'
+import { preferDisposeInTestsRule } from './prefer-dispose-in-tests.js'
 
 RuleTester.describe = describe
 RuleTester.it = it
