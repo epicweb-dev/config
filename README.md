@@ -139,33 +139,7 @@ configurations minimal and only enable rules that catch real problems (the kind
 that are likely to happen). This keeps our linting faster and reduces the number
 of false positives.
 
-#### `epic-web/no-manual-dispose`
-
-This config includes `epic-web/no-manual-dispose` as a warning to encourage
-`using` and `await using` for disposable resources.
-
-The rule warns on:
-
-- direct calls to `[Symbol.dispose]`, `[Symbol.asyncDispose]`, and
-  `[Symbol.disposeAsync]`
-- `.dispose()` (or `['dispose']()`) calls inside `finally` blocks
-
-Example warning:
-
-```js
-let tempFile
-try {
-	tempFile = createTempFile()
-} finally {
-	tempFile?.[Symbol.dispose]()
-}
-```
-
-Preferred:
-
-```js
-using tempFile = createTempFile()
-```
+Custom rule documentation lives in [`eslint-rules/index.md`](./eslint-rules/index.md).
 
 ### Oxlint
 
