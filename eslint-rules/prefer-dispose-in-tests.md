@@ -6,6 +6,16 @@ reasonably live in each test body.
 
 This rule is enabled as `warn` in test files by the shared config.
 
+## Runtime compatibility
+
+This rule is authored in Oxlint's optimized style (`createOnce` + `before`),
+then exposed to ESLint via `eslintCompatPlugin` from `@oxlint/plugins`.
+
+That gives:
+
+- faster execution path in Oxlint JS plugins
+- unchanged behavior in ESLint
+
 ## Why
 
 Disposable test setup keeps setup and cleanup in the same lexical scope and

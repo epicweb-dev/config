@@ -1,7 +1,10 @@
 import { RuleTester } from 'eslint'
-import { afterEach, beforeEach, describe, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, test } from 'vitest'
 
-import { preferDisposeInTestsRule } from './prefer-dispose-in-tests.js'
+import epicWebEslintPlugin from './eslint-plugin-epic-web.js'
+
+const preferDisposeInTestsRule =
+	epicWebEslintPlugin.rules['prefer-dispose-in-tests']
 
 RuleTester.describe = describe
 RuleTester.it = it
@@ -15,6 +18,11 @@ const ruleTester = new RuleTester({
 		ecmaVersion: 'latest',
 		sourceType: 'module',
 	},
+})
+
+test('is oxlint optimized and eslint compatible', () => {
+	expect(typeof preferDisposeInTestsRule.createOnce).toBe('function')
+	expect(typeof preferDisposeInTestsRule.create).toBe('function')
 })
 
 ruleTester.run('prefer-dispose-in-tests', preferDisposeInTestsRule, {

@@ -345,6 +345,72 @@ function isKnownFrameworkHookCallback(callbackNode) {
 	return callNames.every((callName) => KNOWN_FRAMEWORK_HOOK_CALLS.has(callName))
 }
 
+function createRuleVisitors(context, options, state) {
+	function getSuiteAnalysis(suiteNode) {
+		const existingAnalysis = state.suiteAnalysisCache.get(suiteNode)
+		if (existingAnalysis) return existingAnalysis
+
+		const nextAnalysis = analyzeSuiteNode(suiteNode)
+		state.suiteAnalysisCache.set(suiteNode, nextAnalysis)
+		return nextAnalysis
+	}
+
+	return {
+		CallExpression(node) {
+			const hookName = getHookName(node)
+			if (!hookName) return
+
+			const callbackNode = getHookCallback(node)
+			if (!callbackNode) return
+
+			const suiteNode = findContainingSuiteNode(node)
+			if (!suiteNode) return
+
+			const suiteAnalysis = getSuiteAnalysis(suiteNode)
+			if (suiteAnalysis.testCount === 0) {
+				// Setup files often have hooks but no colocated tests.
+				return
+			}
+
+			// Hooks that rely on runner context, callback completion, or shared state
+			// are intentionally allowed because disposable refactors are less direct.
+			if (callbackNode.params.length > 0) return
+			if (containsThisExpression(callbackNode.body)) return
+			if (writesOuterState(callbackNode, state.sourceCode)) return
+
+			const isSuiteHook = SUITE_HOOK_NAMES.has(hookName)
+
+			if (
+				isSuiteHook &&
+				suiteAnalysis.testCount >= options.minimumTestsForSuiteHooks
+			) {
+				return
+			}
+
+			if (
+				!isSuiteHook &&
+				suiteAnalysis.hasDirectSuiteHooks &&
+				suiteAnalysis.testCount >= options.minimumTestsForSuiteHooks
+			) {
+				return
+			}
+
+			if (
+				options.allowKnownFrameworkHooks &&
+				isKnownFrameworkHookCallback(callbackNode)
+			) {
+				return
+			}
+
+			context.report({
+				node,
+				messageId: 'preferDisposables',
+				data: { hookName },
+			})
+		},
+	}
+}
+
 const preferDisposeInTestsRule = {
 	meta: {
 		type: 'suggestion',
@@ -370,76 +436,22 @@ const preferDisposeInTestsRule = {
 				'Prefer disposable setup (`using`/`await using` with `dispose`/`disposeAsync`) instead of {{hookName}} when cleanup can live in each test body.',
 		},
 	},
-	create(context) {
-		const sourceCode = context.sourceCode
+	createOnce(context) {
 		const options = {
 			...DEFAULT_OPTIONS,
 			...(context.options[0] ?? {}),
 		}
-		const suiteAnalysisCache = new WeakMap()
-
-		function getSuiteAnalysis(suiteNode) {
-			const existingAnalysis = suiteAnalysisCache.get(suiteNode)
-			if (existingAnalysis) return existingAnalysis
-
-			const nextAnalysis = analyzeSuiteNode(suiteNode)
-			suiteAnalysisCache.set(suiteNode, nextAnalysis)
-			return nextAnalysis
+		const state = {
+			sourceCode: context.sourceCode,
+			suiteAnalysisCache: new WeakMap(),
 		}
 
 		return {
-			CallExpression(node) {
-				const hookName = getHookName(node)
-				if (!hookName) return
-
-				const callbackNode = getHookCallback(node)
-				if (!callbackNode) return
-
-				const suiteNode = findContainingSuiteNode(node)
-				if (!suiteNode) return
-
-				const suiteAnalysis = getSuiteAnalysis(suiteNode)
-				if (suiteAnalysis.testCount === 0) {
-					// Setup files often have hooks but no colocated tests.
-					return
-				}
-
-				// Hooks that rely on runner context, callback completion, or shared state
-				// are intentionally allowed because disposable refactors are less direct.
-				if (callbackNode.params.length > 0) return
-				if (containsThisExpression(callbackNode.body)) return
-				if (writesOuterState(callbackNode, sourceCode)) return
-
-				const isSuiteHook = SUITE_HOOK_NAMES.has(hookName)
-
-				if (
-					isSuiteHook &&
-					suiteAnalysis.testCount >= options.minimumTestsForSuiteHooks
-				) {
-					return
-				}
-
-				if (
-					!isSuiteHook &&
-					suiteAnalysis.hasDirectSuiteHooks &&
-					suiteAnalysis.testCount >= options.minimumTestsForSuiteHooks
-				) {
-					return
-				}
-
-				if (
-					options.allowKnownFrameworkHooks &&
-					isKnownFrameworkHookCallback(callbackNode)
-				) {
-					return
-				}
-
-				context.report({
-					node,
-					messageId: 'preferDisposables',
-					data: { hookName },
-				})
+			before() {
+				state.sourceCode = context.sourceCode
+				state.suiteAnalysisCache = new WeakMap()
 			},
+			...createRuleVisitors(context, options, state),
 		}
 	},
 }
