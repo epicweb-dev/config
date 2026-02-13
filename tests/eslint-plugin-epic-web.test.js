@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vitest'
 
 import epicWebEslintPlugin from '../eslint-plugin-epic-web.js'
 
-async function lintWithRule(code, { filePath = '/virtual/example.test.ts' } = {}) {
+async function lintWithRule(code, { filePath = '/workspace/example.test.js' } = {}) {
 	const eslint = new ESLint({
 		overrideConfigFile: true,
 		overrideConfig: [
@@ -157,7 +157,7 @@ describe('epic-web/prefer-dispose-in-tests', () => {
 					vi.clearAllMocks()
 				})
 			`,
-			{ filePath: '/virtual/setup-tests.ts' },
+			{ filePath: '/workspace/setup-tests.js' },
 		)
 
 		expect(messages).toHaveLength(0)
