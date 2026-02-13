@@ -168,6 +168,7 @@ Oxlint, so they are intentionally omitted:
 - `jest-dom/*`
 - `vitest/*` (except `vitest/no-import-node-test`)
 - `playwright/*`
+- `epic-web/prefer-dispose-in-tests`
 
 ## License
 
