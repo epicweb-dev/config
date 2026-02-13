@@ -1,10 +1,10 @@
 import { RuleTester } from 'eslint'
 import { afterEach, beforeEach, describe, expect, it, test } from 'vitest'
 
-import epicWebEslintPlugin from './eslint-plugin-epic-web.js'
+import plugin from './epic-web-plugin.js'
 
 const preferDisposeInTestsRule =
-	epicWebEslintPlugin.rules['prefer-dispose-in-tests']
+	plugin.rules['prefer-dispose-in-tests']
 
 RuleTester.describe = describe
 RuleTester.it = it

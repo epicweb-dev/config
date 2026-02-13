@@ -253,9 +253,6 @@ export const config = [
 
 	{
 		files: testFiles,
-		plugins: {
-			'epic-web': epicWebPlugin,
-		},
 		rules: {
 			'epic-web/prefer-dispose-in-tests': WARN,
 		},
