@@ -345,7 +345,7 @@ function isKnownFrameworkHookCallback(callbackNode) {
 	return callNames.every((callName) => KNOWN_FRAMEWORK_HOOK_CALLS.has(callName))
 }
 
-function createRuleVisitors(context, options, state) {
+function createRuleVisitors(context, state) {
 	function getSuiteAnalysis(suiteNode) {
 		const existingAnalysis = state.suiteAnalysisCache.get(suiteNode)
 		if (existingAnalysis) return existingAnalysis
@@ -382,7 +382,7 @@ function createRuleVisitors(context, options, state) {
 
 			if (
 				isSuiteHook &&
-				suiteAnalysis.testCount >= options.minimumTestsForSuiteHooks
+				suiteAnalysis.testCount >= state.options.minimumTestsForSuiteHooks
 			) {
 				return
 			}
@@ -390,13 +390,13 @@ function createRuleVisitors(context, options, state) {
 			if (
 				!isSuiteHook &&
 				suiteAnalysis.hasDirectSuiteHooks &&
-				suiteAnalysis.testCount >= options.minimumTestsForSuiteHooks
+				suiteAnalysis.testCount >= state.options.minimumTestsForSuiteHooks
 			) {
 				return
 			}
 
 			if (
-				options.allowKnownFrameworkHooks &&
+				state.options.allowKnownFrameworkHooks &&
 				isKnownFrameworkHookCallback(callbackNode)
 			) {
 				return
@@ -437,24 +437,25 @@ const preferDisposeInTestsRule = {
 		},
 	},
 	createOnce(context) {
-		const userOptions = Array.isArray(context.options)
-			? (context.options[0] ?? {})
-			: (context.options ?? {})
-		const options = {
-			...DEFAULT_OPTIONS,
-			...userOptions,
-		}
 		const state = {
-			sourceCode: context.sourceCode,
+			sourceCode: null,
 			suiteAnalysisCache: new WeakMap(),
+			options: DEFAULT_OPTIONS,
 		}
 
 		return {
 			before() {
 				state.sourceCode = context.sourceCode
 				state.suiteAnalysisCache = new WeakMap()
+				const userOptions = Array.isArray(context.options)
+					? (context.options[0] ?? {})
+					: (context.options ?? {})
+				state.options = {
+					...DEFAULT_OPTIONS,
+					...userOptions,
+				}
 			},
-			...createRuleVisitors(context, options, state),
+			...createRuleVisitors(context, state),
 		}
 	},
 }
