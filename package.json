@@ -17,6 +17,7 @@
     "./typescript": "./typescript.json",
     "./reset.d.ts": "./reset.d.ts",
     "./eslint": "./eslint.js",
+    "./eslint-plugin": "./eslint-plugin-epic-web.js",
     "./oxlint": "./oxlint-config.json"
   },
   "prettier": "./prettier.js",

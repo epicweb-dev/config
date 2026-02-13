@@ -113,6 +113,7 @@
 			],
 			"rules": {
 				"eslint/no-restricted-imports": "off",
+				"epic-web/prefer-dispose-in-tests": "warn",
 				"vitest/no-import-node-test": "error"
 			}
 		},

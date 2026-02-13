@@ -15,3 +15,4 @@ remaining ESLint-compatible.
 ## Rules
 
 - [`epic-web/no-manual-dispose`](./no-manual-dispose.md)
+- [`epic-web/prefer-dispose-in-tests`](./prefer-dispose-in-tests.md)

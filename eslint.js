@@ -251,6 +251,13 @@ export const config = [
 		},
 	},
 
+	{
+		files: testFiles,
+		rules: {
+			'epic-web/prefer-dispose-in-tests': WARN,
+		},
+	},
+
 	hasTestingLibrary
 		? {
 				files: testFiles,
