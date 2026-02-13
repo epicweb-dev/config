@@ -48,10 +48,22 @@ function getManualDisposeCallKind(node) {
 	return null
 }
 
+function isFunctionBoundary(node) {
+	return (
+		node?.type === 'FunctionDeclaration' ||
+		node?.type === 'FunctionExpression' ||
+		node?.type === 'ArrowFunctionExpression'
+	)
+}
+
 function isInFinallyBlock(node) {
 	let current = node
 
 	while (current?.parent) {
+		if (isFunctionBoundary(current.parent)) {
+			return false
+		}
+
 		if (
 			current.parent.type === 'TryStatement' &&
 			current.parent.finalizer === current
