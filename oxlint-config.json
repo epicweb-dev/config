@@ -5,7 +5,7 @@
 		"node": true
 	},
 	"plugins": ["import", "react", "typescript", "vitest"],
-	"jsPlugins": ["./eslint-rules/epic-web-plugin.js"],
+	"jsPlugins": ["./lint-rules/epic-web-plugin.js"],
 	"ignorePatterns": [
 		"**/.cache/**",
 		"**/node_modules/**",

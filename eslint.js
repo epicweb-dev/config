@@ -1,5 +1,5 @@
 import globals from 'globals'
-import epicWebPlugin from './eslint-rules/epic-web-plugin.js'
+import epicWebPlugin from './lint-rules/epic-web-plugin.js'
 import { has } from './utils.js'
 
 const ERROR = 'error'

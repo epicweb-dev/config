@@ -139,7 +139,7 @@ configurations minimal and only enable rules that catch real problems (the kind
 that are likely to happen). This keeps our linting faster and reduces the number
 of false positives.
 
-Custom rule documentation lives in [`eslint-rules/index.md`](./eslint-rules/index.md).
+Custom rule documentation lives in [`lint-rules/index.md`](./lint-rules/index.md).
 
 ### Oxlint
 

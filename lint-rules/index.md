@@ -1,6 +1,6 @@
-# ESLint rules
+# Lint rules
 
-Custom ESLint rules for this package live in this directory.
+Custom lint rules for this package live in this directory.
 
 Each rule should have:
 
