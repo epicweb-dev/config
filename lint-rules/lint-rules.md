@@ -1,6 +1,6 @@
-# ESLint rules
+# Lint rules
 
-Custom ESLint rule assets live in this directory:
+Custom lint rule assets live in this directory:
 
 - implementation files (`*.js`)
 - rule docs (`*.md`)
