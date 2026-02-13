@@ -1,6 +1,7 @@
 import globals from 'globals'
 import epicWebPlugin from './lint-rules/epic-web-plugin.js'
 import { has } from './utils.js'
+import epicWebEslintPlugin from './eslint-plugin-epic-web.js'
 
 const ERROR = 'error'
 const WARN = 'warn'
@@ -248,6 +249,16 @@ export const config = [
 					],
 				},
 			],
+		},
+	},
+
+	{
+		files: testFiles,
+		plugins: {
+			'epic-web': epicWebEslintPlugin,
+		},
+		rules: {
+			'epic-web/prefer-dispose-in-tests': WARN,
 		},
 	},
 
