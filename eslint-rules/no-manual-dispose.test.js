@@ -1,5 +1,7 @@
 import { RuleTester } from 'eslint'
-import rule from './no-manual-dispose.js'
+import plugin from './epic-web-plugin.js'
+
+const rule = plugin.rules['no-manual-dispose']
 
 const tester = new RuleTester({
 	languageOptions: {

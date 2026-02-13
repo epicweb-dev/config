@@ -1,5 +1,5 @@
 import globals from 'globals'
-import noManualDispose from './eslint-rules/no-manual-dispose.js'
+import epicWebPlugin from './eslint-rules/epic-web-plugin.js'
 import { has } from './utils.js'
 
 const ERROR = 'error'
@@ -39,11 +39,7 @@ export const config = [
 	{
 		plugins: {
 			import: (await import('eslint-plugin-import-x')).default,
-			'epic-web': {
-				rules: {
-					'no-manual-dispose': noManualDispose,
-				},
-			},
+			'epic-web': epicWebPlugin,
 		},
 		languageOptions: {
 			globals: {

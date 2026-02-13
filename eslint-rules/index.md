@@ -8,6 +8,10 @@ Each rule should have:
 - tests: `*.test.js`
 - documentation: `*.md`
 
+Rules are registered through [`epic-web-plugin.js`](./epic-web-plugin.js), which
+uses `eslintCompatPlugin(...)` so rules can use Oxlint's `createOnce` API while
+remaining ESLint-compatible.
+
 ## Rules
 
 - [`epic-web/no-manual-dispose`](./no-manual-dispose.md)

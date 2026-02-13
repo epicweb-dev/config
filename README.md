@@ -164,7 +164,6 @@ Oxlint, so they are intentionally omitted:
 - `react-hooks/rules-of-hooks`
 - `react-hooks/exhaustive-deps`
 - `@typescript-eslint/no-unused-vars` (falls back to `eslint/no-unused-vars`)
-- `epic-web/no-manual-dispose`
 - `testing-library/*`
 - `jest-dom/*`
 - `vitest/*` (except `vitest/no-import-node-test`)

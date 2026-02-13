@@ -92,7 +92,7 @@ const rule = {
 				'Do not call `[Symbol.dispose]`/`[Symbol.asyncDispose]` directly; prefer `using` or `await using`.',
 		},
 	},
-	create(context) {
+	createOnce(context) {
 		return {
 			CallExpression(node) {
 				const callKind = getManualDisposeCallKind(node)
