@@ -172,22 +172,52 @@ function findVariableInScope(scope, variableName) {
 	return null
 }
 
-function getRootIdentifier(node) {
-	if (!node) return null
+function getRootIdentifiers(node) {
+	if (!node) return []
 
 	if (node.type === 'ChainExpression') {
-		return getRootIdentifier(node.expression)
+		return getRootIdentifiers(node.expression)
 	}
 
 	if (node.type === 'Identifier') {
-		return node
+		return [node]
 	}
 
 	if (node.type === 'MemberExpression') {
-		return getRootIdentifier(node.object)
+		return getRootIdentifiers(node.object)
 	}
 
-	return null
+	if (node.type === 'ObjectPattern') {
+		let identifiers = []
+		for (const property of node.properties) {
+			if (!property) continue
+			if (property.type === 'Property') {
+				identifiers = identifiers.concat(getRootIdentifiers(property.value))
+			} else if (property.type === 'RestElement') {
+				identifiers = identifiers.concat(getRootIdentifiers(property.argument))
+			}
+		}
+		return identifiers
+	}
+
+	if (node.type === 'ArrayPattern') {
+		let identifiers = []
+		for (const element of node.elements) {
+			if (!element) continue
+			identifiers = identifiers.concat(getRootIdentifiers(element))
+		}
+		return identifiers
+	}
+
+	if (node.type === 'AssignmentPattern') {
+		return getRootIdentifiers(node.left)
+	}
+
+	if (node.type === 'RestElement') {
+		return getRootIdentifiers(node.argument)
+	}
+
+	return []
 }
 
 function writesOuterState(callbackNode, sourceCode) {
@@ -204,20 +234,23 @@ function writesOuterState(callbackNode, sourceCode) {
 		}
 
 		if (!writeTarget) return
-		const rootIdentifier = getRootIdentifier(writeTarget)
-		if (!rootIdentifier) return
+		const rootIdentifiers = getRootIdentifiers(writeTarget)
+		if (!rootIdentifiers.length) return
 
-		const identifierScope = sourceCode.getScope(rootIdentifier)
-		const variable = findVariableInScope(identifierScope, rootIdentifier.name)
+		for (const rootIdentifier of rootIdentifiers) {
+			const identifierScope = sourceCode.getScope(rootIdentifier)
+			const variable = findVariableInScope(identifierScope, rootIdentifier.name)
 
-		// If this is an unresolved/global write, treat it as shared mutable state.
-		if (!variable) {
-			writesOuterValue = true
-			return
-		}
+			// If this is an unresolved/global write, treat it as shared mutable state.
+			if (!variable) {
+				writesOuterValue = true
+				return
+			}
 
-		if (!isVariableDefinedInNode(variable, callbackNode)) {
-			writesOuterValue = true
+			if (!isVariableDefinedInNode(variable, callbackNode)) {
+				writesOuterValue = true
+				return
+			}
 		}
 	})
 
