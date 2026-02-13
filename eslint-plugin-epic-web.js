@@ -86,7 +86,18 @@ function getHookName(node) {
 	const callPath = getCallPath(node)
 	if (!callPath || callPath.length === 0) return null
 	const lastSegment = callPath.at(-1)
-	return HOOK_NAMES.has(lastSegment) ? lastSegment : null
+	if (!HOOK_NAMES.has(lastSegment)) return null
+
+	if (callPath.length === 1) return lastSegment
+
+	if (
+		callPath.length === 2 &&
+		(TEST_CALL_ROOTS.has(callPath[0]) || SUITE_CALL_ROOTS.has(callPath[0]))
+	) {
+		return lastSegment
+	}
+
+	return null
 }
 
 function isFunctionNode(node) {
