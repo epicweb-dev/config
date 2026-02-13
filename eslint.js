@@ -1,4 +1,5 @@
 import globals from 'globals'
+import epicWebPlugin from './lint-rules/epic-web-plugin.js'
 import { has } from './utils.js'
 
 const ERROR = 'error'
@@ -38,6 +39,7 @@ export const config = [
 	{
 		plugins: {
 			import: (await import('eslint-plugin-import-x')).default,
+			'epic-web': epicWebPlugin,
 		},
 		languageOptions: {
 			globals: {
@@ -51,6 +53,7 @@ export const config = [
 				ERROR,
 				{ terms: ['FIXME'], location: 'anywhere' },
 			],
+			'epic-web/no-manual-dispose': WARN,
 			'import/no-duplicates': [WARN, { 'prefer-inline': true }],
 			'import/order': [
 				WARN,

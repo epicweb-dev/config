@@ -5,6 +5,7 @@
 		"node": true
 	},
 	"plugins": ["import", "react", "typescript", "vitest"],
+	"jsPlugins": ["./lint-rules/epic-web-plugin.js"],
 	"ignorePatterns": [
 		"**/.cache/**",
 		"**/node_modules/**",
@@ -29,6 +30,7 @@
 				"location": "anywhere"
 			}
 		],
+		"epic-web/no-manual-dispose": "warn",
 		"import/no-duplicates": [
 			"warn",
 			{
