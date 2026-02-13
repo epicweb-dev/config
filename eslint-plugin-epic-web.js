@@ -428,7 +428,6 @@ const preferDisposeInTestsRule = {
 				}
 
 				if (
-					!isSuiteHook &&
 					options.allowKnownFrameworkHooks &&
 					isKnownFrameworkHookCallback(callbackNode)
 				) {
