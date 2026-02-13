@@ -139,6 +139,34 @@ configurations minimal and only enable rules that catch real problems (the kind
 that are likely to happen). This keeps our linting faster and reduces the number
 of false positives.
 
+#### `epic-web/no-manual-dispose`
+
+This config includes `epic-web/no-manual-dispose` as a warning to encourage
+`using` and `await using` for disposable resources.
+
+The rule warns on:
+
+- direct calls to `[Symbol.dispose]`, `[Symbol.asyncDispose]`, and
+  `[Symbol.disposeAsync]`
+- `.dispose()` (or `['dispose']()`) calls inside `finally` blocks
+
+Example warning:
+
+```js
+let tempFile
+try {
+	tempFile = createTempFile()
+} finally {
+	tempFile?.[Symbol.dispose]()
+}
+```
+
+Preferred:
+
+```js
+using tempFile = createTempFile()
+```
+
 ### Oxlint
 
 Create a `.oxlintrc.json` file in your project root with the following content:
@@ -162,6 +190,7 @@ Oxlint, so they are intentionally omitted:
 - `react-hooks/rules-of-hooks`
 - `react-hooks/exhaustive-deps`
 - `@typescript-eslint/no-unused-vars` (falls back to `eslint/no-unused-vars`)
+- `epic-web/no-manual-dispose`
 - `testing-library/*`
 - `jest-dom/*`
 - `vitest/*` (except `vitest/no-import-node-test`)
