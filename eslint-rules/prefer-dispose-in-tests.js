@@ -437,9 +437,12 @@ const preferDisposeInTestsRule = {
 		},
 	},
 	createOnce(context) {
+		const userOptions = Array.isArray(context.options)
+			? (context.options[0] ?? {})
+			: (context.options ?? {})
 		const options = {
 			...DEFAULT_OPTIONS,
-			...(context.options[0] ?? {}),
+			...userOptions,
 		}
 		const state = {
 			sourceCode: context.sourceCode,
