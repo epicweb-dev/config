@@ -79,9 +79,9 @@
 					"warn",
 					{
 						"args": "after-used",
-						"argsIgnorePattern": "^_",
+						"argsIgnorePattern": "^(_|ignored)",
 						"ignoreRestSiblings": true,
-						"varsIgnorePattern": "^ignored"
+						"varsIgnorePattern": "^(_|ignored)"
 					}
 				],
 				"eslint/no-restricted-imports": [
