@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process'
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -103,7 +103,7 @@ export async function runOxlint(input) {
 			throw new Error(result.stderr)
 		}
 
-		if (result.exitCode && result.exitCode !== 0) {
+		if (result.exitCode != null && result.exitCode > 1) {
 			throw new Error(result.stdout || `Oxlint exited with code ${result.exitCode}`)
 		}
 
@@ -121,6 +121,3 @@ export async function disposeOxlintFixture(fixture) {
 	await fixture[Symbol.asyncDispose]()
 }
 
-export async function readLockfile() {
-	return readFile(path.join(rootDirectory, 'package-lock.json'), 'utf8')
-}
