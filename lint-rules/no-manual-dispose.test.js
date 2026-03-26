@@ -13,8 +13,10 @@ describe('epic-web/no-manual-dispose', () => {
 				})
 
 				function cleanup(resource) {
-					resource.dispose()
+					return resource.dispose()
 				}
+
+				cleanup(createTempFile())
 			`,
 			rules: {
 				'epic-web/no-manual-dispose': 'warn',

@@ -22,7 +22,7 @@
   "scripts": {
     "format": "prettier . --write",
     "lint": "oxlint --config oxlint-config.json .",
-    "test": "vitest run",
+    "test": "vitest run lint-rules/*.test.js",
     "typecheck": "tsc",
     "validate": "run-p -l format lint typecheck"
   },
