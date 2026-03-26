@@ -1,14 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+	disposeOxlintFixture,
 	runOxlint,
 	writeOxlintFixture,
 } from './oxlint-test-utils.js'
-
-async function cleanupFixture(fixture) {
-	// oxlint-disable-next-line epic-web/no-manual-dispose
-	await fixture[Symbol.asyncDispose]()
-}
 
 describe('epic-web/prefer-dispose-in-tests', () => {
 	it('reports lifecycle hooks that can move into a test body', async () => {
@@ -38,7 +34,7 @@ describe('epic-web/prefer-dispose-in-tests', () => {
 			})
 			expect(result.diagnostics[0].message).toContain('instead of beforeEach')
 		} finally {
-		await cleanupFixture(fixture)
+			await disposeOxlintFixture(fixture)
 		}
 	})
 
@@ -76,7 +72,7 @@ describe('epic-web/prefer-dispose-in-tests', () => {
 			const result = await runOxlint(fixture)
 			expect(result.diagnostics).toHaveLength(0)
 		} finally {
-		await cleanupFixture(fixture)
+			await disposeOxlintFixture(fixture)
 		}
 	})
 
@@ -106,7 +102,7 @@ describe('epic-web/prefer-dispose-in-tests', () => {
 			expect(result.diagnostics).toHaveLength(1)
 			expect(result.diagnostics[0].message).toContain('instead of beforeEach')
 		} finally {
-		await cleanupFixture(fixture)
+			await disposeOxlintFixture(fixture)
 		}
 	})
 })

@@ -65,45 +65,60 @@ export async function writeOxlintFixture({
 }
 
 export async function runOxlint(input) {
-	const fixture =
-		'filePath' in input && 'configPath' in input
-			? input
-			: await writeOxlintFixture(input)
+	const fixtureWasProvided = 'filePath' in input && 'configPath' in input
+	const fixture = fixtureWasProvided ? input : await writeOxlintFixture(input)
 
-	const args = ['--config', fixture.configPath, '--format', 'json', fixture.filePath]
+	try {
+		const args = [
+			'--config',
+			fixture.configPath,
+			'--format',
+			'json',
+			fixture.filePath,
+		]
 
-	if (fixture.typeAware) args.unshift('--type-aware')
+		if (fixture.typeAware) args.unshift('--type-aware')
 
-	const result = await new Promise((resolve, reject) => {
-		const child = spawn(oxlintBinary, args, {
-			cwd: rootDirectory,
-			stdio: ['ignore', 'pipe', 'pipe'],
+		const result = await new Promise((resolve, reject) => {
+			const child = spawn(oxlintBinary, args, {
+				cwd: rootDirectory,
+				stdio: ['ignore', 'pipe', 'pipe'],
+			})
+			let stdout = ''
+			let stderr = ''
+
+			child.stdout.on('data', (chunk) => {
+				stdout += chunk
+			})
+			child.stderr.on('data', (chunk) => {
+				stderr += chunk
+			})
+			child.on('error', reject)
+			child.on('close', (exitCode) => {
+				resolve({ exitCode, stderr, stdout })
+			})
 		})
-		let stdout = ''
-		let stderr = ''
 
-		child.stdout.on('data', (chunk) => {
-			stdout += chunk
-		})
-		child.stderr.on('data', (chunk) => {
-			stderr += chunk
-		})
-		child.on('error', reject)
-		child.on('close', (exitCode) => {
-			resolve({ exitCode, stderr, stdout })
-		})
-	})
+		if (result.stderr) {
+			throw new Error(result.stderr)
+		}
 
-	if (result.stderr) {
-		throw new Error(result.stderr)
+		if (result.exitCode && result.exitCode !== 0) {
+			throw new Error(result.stdout || `Oxlint exited with code ${result.exitCode}`)
+		}
+
+		const stdout = result.stdout.trim()
+		return stdout ? JSON.parse(stdout) : { diagnostics: [] }
+	} finally {
+		if (!fixtureWasProvided) {
+			await disposeOxlintFixture(fixture)
+		}
 	}
+}
 
-	if (result.exitCode && result.exitCode !== 0) {
-		throw new Error(result.stdout || `Oxlint exited with code ${result.exitCode}`)
-	}
-
-	const stdout = result.stdout.trim()
-	return stdout ? JSON.parse(stdout) : { diagnostics: [] }
+export async function disposeOxlintFixture(fixture) {
+	// oxlint-disable-next-line epic-web/no-manual-dispose
+	await fixture[Symbol.asyncDispose]()
 }
 
 export async function readLockfile() {
