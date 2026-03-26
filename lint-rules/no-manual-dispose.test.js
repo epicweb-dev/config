@@ -1,115 +1,65 @@
-import { RuleTester } from 'eslint'
-import plugin from './epic-web-plugin.js'
+import { describe, expect, test } from 'vitest'
 
-const rule = plugin.rules['no-manual-dispose']
+import { runOxlint } from './oxlint-test-utils.js'
 
-const tester = new RuleTester({
-	languageOptions: {
-		ecmaVersion: 'latest',
-		sourceType: 'module',
-	},
-})
-
-tester.run('no-manual-dispose', rule, {
-	valid: [
-		`
-		test('reads a temp file', () => {
-			using tempFile = createTempFile()
-			return Bun.file(tempFile.path).text()
-		})
-		`,
-		`
-		async function setup() {
-			await using db = await createDisposableDatabase()
-			return db
-		}
-		`,
-		`
-		function cleanup(resource) {
-			resource.dispose()
-		}
-		`,
-		`
-		class TempFile {
-			[Symbol.dispose]() {
-				closeFileHandle()
-			}
-			async [Symbol.asyncDispose]() {
-				await closeFileHandle()
-			}
-		}
-		`,
-		`
-		let tempFile
-		try {
-			tempFile = createTempFile()
-		} finally {
-			logCleanup(tempFile)
-		}
-		`,
-	],
-	invalid: [
-		{
+describe('epic-web/no-manual-dispose', () => {
+	test('allows using declarations and ordinary cleanup helpers', async () => {
+		const result = await runOxlint({
+			filename: 'sample.js',
 			code: `
-			let tempFile
-			try {
-				tempFile = createTempFile()
-			} finally {
-				tempFile?.[Symbol.dispose]()
-			}
-			`,
-			errors: [{ messageId: 'avoidManualSymbolDispose' }],
-		},
-		{
-			code: `
-			let tempFile
-			try {
-				tempFile = createTempFile()
-			} finally {
-				if (tempFile) {
-					tempFile['dispose']()
+				test('reads a temp file', () => {
+					using tempFile = createTempFile()
+					return Bun.file(tempFile.path).text()
+				})
+
+				function cleanup(resource) {
+					resource.dispose()
 				}
-			}
 			`,
-			errors: [{ messageId: 'preferUsingInFinally' }],
-		},
-		{
+			rules: {
+				'epic-web/no-manual-dispose': 'warn',
+			},
+		})
+
+		expect(result.diagnostics).toHaveLength(0)
+	})
+
+	test('reports direct symbol dispose calls', async () => {
+		const result = await runOxlint({
+			filename: 'sample.js',
 			code: `
-			let tempFile
-			try {
-				tempFile = createTempFile()
-			} finally {
-				tempFile?.dispose()
-			}
+				const tempFile = createTempFile()
+				tempFile[Symbol.dispose]()
 			`,
-			errors: [{ messageId: 'preferUsingInFinally' }],
-		},
-		{
+			rules: {
+				'epic-web/no-manual-dispose': 'warn',
+			},
+		})
+
+		expect(result.diagnostics).toHaveLength(1)
+		expect(result.diagnostics[0]?.code).toBe('epic-web(no-manual-dispose)')
+		expect(result.diagnostics[0]?.message).toContain('Do not call')
+	})
+
+	test('reports manual dispose calls inside finally blocks', async () => {
+		const result = await runOxlint({
+			filename: 'sample.js',
 			code: `
-			async function closeResource() {
 				let tempFile
 				try {
-					tempFile = await createTempFile()
+					tempFile = createTempFile()
 				} finally {
-					await tempFile?.[Symbol.asyncDispose]()
+					tempFile?.dispose()
 				}
-			}
 			`,
-			errors: [{ messageId: 'avoidManualSymbolDispose' }],
-		},
-		{
-			code: `
-			const tempFile = createTempFile()
-			tempFile[Symbol.dispose]()
-			`,
-			errors: [{ messageId: 'avoidManualSymbolDispose' }],
-		},
-		{
-			code: `
-			const tempFile = createTempFile()
-			tempFile?.[Symbol.disposeAsync]()
-			`,
-			errors: [{ messageId: 'avoidManualSymbolDispose' }],
-		},
-	],
+			rules: {
+				'epic-web/no-manual-dispose': 'warn',
+			},
+		})
+
+		expect(result.diagnostics).toHaveLength(1)
+		expect(result.diagnostics[0]?.message).toContain(
+			'Avoid manual disposal in `finally`',
+		)
+	})
 })

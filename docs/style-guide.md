@@ -1073,10 +1073,9 @@ function calculateTotal(items: Array<number>) {
 
 Don't use semicolons. The rules for when you should use semicolons are more
 complicated than the rules for when you must use semicolons. With the right
-eslint rule
-([`no-unexpected-multiline`](https://eslint.org/docs/latest/rules/no-unexpected-multiline))
-and a formatter that will format your code funny for you if you mess up, you can
-avoid the pitfalls. Read more about this in
+Oxlint rule (`eslint/no-unexpected-multiline`) and a formatter that will format
+your code funny for you if you mess up, you can avoid the pitfalls. Read more
+about this in
 [Semicolons in JavaScript: A preference](https://kentcdodds.com/blog/semicolons-in-javascript-a-preference).
 
 <!-- prettier-ignore -->
@@ -1826,7 +1825,7 @@ test('Form shows error for invalid email', async () => {
 
 Prioritize your tests according to the Testing Trophy:
 
-1. Static Analysis (TypeScript, ESLint)
+1. Static Analysis (TypeScript, Oxlint)
 2. Unit Tests (Pure Functions)
 3. Integration Tests (Component Integration)
 4. E2E Tests (Critical User Flows)

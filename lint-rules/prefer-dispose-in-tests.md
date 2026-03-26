@@ -4,17 +4,12 @@ Prefer disposable setup (`using`/`await using` with `dispose`/`disposeAsync`)
 instead of `beforeEach`/`afterEach`/`beforeAll`/`afterAll` when cleanup can
 reasonably live in each test body.
 
-This rule is enabled as `warn` in test files by the shared config.
+This rule is enabled as `warn` in test files by the shared Oxlint config.
 
-## Runtime compatibility
+## Runtime behavior
 
-This rule is authored in Oxlint's optimized style (`createOnce` + `before`),
-then exposed to ESLint via `eslintCompatPlugin` from `@oxlint/plugins`.
-
-That gives:
-
-- faster execution path in Oxlint JS plugins
-- unchanged behavior in ESLint
+This rule is authored as an Oxlint JS plugin rule using Oxlint's optimized
+`createOnce` + `before` flow.
 
 ## Why
 
@@ -54,27 +49,24 @@ refactors are often not straightforward:
 
 ## Example override
 
-```js
-import { config as defaultConfig } from '@epic-web/config/eslint'
-import epicWebPlugin from '@epic-web/config/eslint-plugin'
-
-/** @type {import("eslint").Linter.Config[]} */
-export default [
-	...defaultConfig,
-	{
-		files: ['**/*.test.*', '**/*.spec.*'],
-		plugins: { 'epic-web': epicWebPlugin },
-		rules: {
-			'epic-web/prefer-dispose-in-tests': [
-				'warn',
-				{ minimumTestsForSuiteHooks: 3 },
-			],
-		},
-	},
-]
+```json
+{
+	"plugins": ["import", "react", "typescript", "vitest"],
+	"jsPlugins": ["./node_modules/@epic-web/config/lint-rules/epic-web-plugin.js"],
+	"overrides": [
+		{
+			"files": ["**/*.test.*", "**/*.spec.*"],
+			"rules": {
+				"epic-web/prefer-dispose-in-tests": [
+					"warn",
+					{ "minimumTestsForSuiteHooks": 3 }
+				]
+			}
+		}
+	]
+}
 ```
 
 ## Source files
 
 - implementation: [`prefer-dispose-in-tests.js`](./prefer-dispose-in-tests.js)
-- tests: [`prefer-dispose-in-tests.test.js`](./prefer-dispose-in-tests.test.js)

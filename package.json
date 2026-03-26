@@ -5,7 +5,7 @@
     "access": "public"
   },
   "version": "0.0.0-semantically-released",
-  "description": "Reasonable ESLint configs for epic web devs",
+  "description": "Reasonable Oxlint, Prettier, and TypeScript configs for epic web devs",
   "main": "index.js",
   "type": "module",
   "imports": {
@@ -16,20 +16,19 @@
     "./prettier": "./prettier.js",
     "./typescript": "./typescript.json",
     "./reset.d.ts": "./reset.d.ts",
-    "./eslint": "./eslint.js",
-    "./eslint-plugin": "./eslint-plugin-epic-web.js",
     "./oxlint": "./oxlint-config.json"
   },
   "prettier": "./prettier.js",
   "scripts": {
     "format": "prettier . --write",
-    "lint": "eslint .",
+    "lint": "oxlint --config oxlint-config.json .",
+    "test": "vitest run",
     "typecheck": "tsc",
     "validate": "run-p -l format lint typecheck"
   },
   "keywords": [
     "config",
-    "eslint",
+    "oxlint",
     "prettier",
     "typescript",
     "epic"
@@ -44,23 +43,14 @@
   "dependencies": {
     "@oxlint/plugins": "^1.43.0",
     "@total-typescript/ts-reset": "^0.6.1",
-    "@vitest/eslint-plugin": "^1.3.4",
-    "eslint-plugin-import-x": "^4.16.1",
-    "eslint-plugin-jest-dom": "^5.5.0",
-    "eslint-plugin-playwright": "^2.2.0",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-testing-library": "^7.6.1",
-    "globals": "^16.3.0",
     "prettier-plugin-tailwindcss": "^0.6.14",
-    "tslib": "^2.8.1",
-    "typescript-eslint": "^8.38.0"
+    "tslib": "^2.8.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.54.1",
     "@types/react": "^19.1.8",
-    "eslint": "^9.32.0",
     "npm-run-all": "^4.1.5",
+    "oxlint": "^1.57.0",
     "prettier": "^3.6.2",
     "react": "^19.1.0",
     "typescript": "^5.8.3",
