@@ -58,8 +58,8 @@ export async function writeOxlintFixture({
 		directory,
 		filePath,
 		typeAware,
-		async cleanup() {
-			await cleanupTemporaryDirectory(directory)
+		[Symbol.asyncDispose]() {
+			return cleanupTemporaryDirectory(directory)
 		},
 	}
 }

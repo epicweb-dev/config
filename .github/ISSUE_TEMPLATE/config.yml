@@ -5,6 +5,12 @@ contact_links:
     about:
       If you can't get something to work the way you expect, open a question in
       the discussions.
+  - name: 🐂 Oxlint Rule Suggestion
+    url: https://github.com/epicweb-dev/config/discussions/new?category=oxlint-suggestion
+    about:
+      We appreciate you taking the time to improve `@epic-web/config` with your
+      ideas, but we use Discussions for config suggestions instead of the issues
+      tab.
   - name: 💬 Epic Web Discord Server
     url: https://kcd.im/discord
     about: Interact with other Epic Web developers
