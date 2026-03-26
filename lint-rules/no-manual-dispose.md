@@ -8,9 +8,8 @@ use `using` or `await using`.
 Manual cleanup with `try/finally` and disposal calls is easier to get wrong and
 less readable than language-level disposables.
 
-This rule is implemented with Oxlint's `createOnce` API and wrapped with
-`eslintCompatPlugin(...)`, so it is optimized for Oxlint and still works in
-ESLint.
+This rule is implemented as an Oxlint JS plugin rule using Oxlint's
+`createOnce` API.
 
 ## What it warns on
 

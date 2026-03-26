@@ -1,7 +1,7 @@
 <div>
   <h1 align="center"><a href="https://npm.im/@epic-web/config">👮 @epic-web/config</a></h1>
   <strong>
-    Reasonable ESLint, Oxlint, Prettier, and TypeScript configs for epic web devs
+    Reasonable Oxlint, Prettier, and TypeScript configs for epic web devs
   </strong>
   <p>
     This makes assumptions about the way you prefer to develop software and gives you configurations that will actually help you in your development.
@@ -40,8 +40,11 @@ configuring code quality tools or babysitting them.
 
 ## This solution
 
-This is a set of configurations you can use in your web projects to avoid
-wasting time.
+This package provides shared defaults for the tools this repo currently ships:
+
+- Oxlint
+- Prettier
+- TypeScript
 
 ## Decisions
 
@@ -114,33 +117,6 @@ Learn more from
 
 </details>
 
-### ESLint
-
-Create a `eslint.config.js` file in your project root with the following
-content:
-
-```js
-import { config as defaultConfig } from '@epic-web/config/eslint'
-
-/** @type {import("eslint").Linter.Config[]} */
-export default [...defaultConfig]
-```
-
-<details>
-  <summary>Customizing ESLint</summary>
-
-Learn more from
-[the Eslint docs here](https://eslint.org/docs/latest/extend/shareable-configs#overriding-settings-from-shareable-configs).
-
-</details>
-
-There are endless rules we could enable. However, we want to keep our
-configurations minimal and only enable rules that catch real problems (the kind
-that are likely to happen). This keeps our linting faster and reduces the number
-of false positives.
-
-Custom rule documentation lives in [`lint-rules/index.md`](./lint-rules/index.md).
-
 ### Oxlint
 
 Create a `.oxlintrc.json` file in your project root with the following content:
@@ -151,22 +127,28 @@ Create a `.oxlintrc.json` file in your project root with the following content:
 }
 ```
 
+This config includes the custom `epic-web/*` rules documented in
+[`lint-rules/index.md`](./lint-rules/index.md).
+
 Note: `typescript/no-misused-promises` and `typescript/no-floating-promises` are
 type-aware in Oxlint and require the type-aware setup described in the Oxlint
 docs.
 
-#### Unsupported rules
+Some Oxlint rule IDs still use the `eslint/` namespace because that is how
+Oxlint exposes those compatibility rules. You do not need to install ESLint to
+use them.
 
-The following ESLint rules/plugins from this config are not yet available in
-Oxlint, so they are intentionally omitted:
+#### Not yet covered
+
+The following rule families are intentionally omitted because they are not yet
+part of the Oxlint config this package ships:
 
 - `import/order`
 - `react-hooks/rules-of-hooks`
 - `react-hooks/exhaustive-deps`
-- `@typescript-eslint/no-unused-vars` (falls back to `eslint/no-unused-vars`)
 - `testing-library/*`
 - `jest-dom/*`
-- `vitest/*` (except `vitest/no-import-node-test`)
+- most `vitest/*` rules
 - `playwright/*`
 
 ## License
