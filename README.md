@@ -62,9 +62,9 @@ configure anything more than the defaults).
 Install [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) alongside this
 package (it is listed in `peerDependencies`).
 
-The `@epic-web/config/oxfmt` entry resolves to a plain `.mjs` preset so Node
-does not need to strip TypeScript from files under `node_modules` when you
-extend it.
+The `@epic-web/config/oxfmt` entry resolves to a plain `.js` preset (this
+package uses `"type": "module"`) so Node does not need to strip TypeScript from
+files under `node_modules` when you extend it.
 
 Create an `oxfmt.config.ts` file in your project root:
 
@@ -108,7 +108,7 @@ Epic projects. Adjust in your `defineConfig` if your layout differs.
   <summary>Customizing Oxfmt</summary>
 
 If you want to customize things heavily, you can copy the options from
-[`oxfmt-preset.mjs`](./oxfmt-preset.mjs) into your own config. For small tweaks,
+[`oxfmt-preset.js`](./oxfmt-preset.js) into your own config. For small tweaks,
 keep spreading `epicOxfmt` and override or extend fields as in the example
 above.
 

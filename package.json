@@ -13,7 +13,11 @@
   },
   "exports": {
     ".": "./index.js",
-    "./oxfmt": "./oxfmt-preset.mjs",
+    "./oxfmt": {
+      "types": "./oxfmt-preset.d.ts",
+      "import": "./oxfmt-preset.js",
+      "default": "./oxfmt-preset.js"
+    },
     "./typescript": "./typescript.json",
     "./reset.d.ts": "./reset.d.ts",
     "./oxlint": "./oxlint-config.json"

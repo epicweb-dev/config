@@ -1,8 +1,9 @@
 import { defineConfig } from 'oxfmt'
 
 /**
- * Shared Oxfmt preset for `@epic-web/config` consumers (plain `.mjs` so Node does
- * not load TypeScript from `node_modules`).
+ * Shared Oxfmt preset for `@epic-web/config` consumers (plain `.js` under this
+ * package’s `"type": "module"` so Node does not execute TypeScript from
+ * `node_modules`).
  *
  * @see https://oxc.rs/docs/guide/usage/formatter/migrate-from-prettier.html
  */

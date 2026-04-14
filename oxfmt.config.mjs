@@ -1,1 +1,1 @@
-export { default } from './oxfmt-preset.mjs'
+export { default } from './oxfmt-preset.js'

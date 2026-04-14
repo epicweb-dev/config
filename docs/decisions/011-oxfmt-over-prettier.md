@@ -26,7 +26,7 @@ ignore files; lockfiles and generated paths were duplicated across
 
 Adopt **Oxfmt** as the shared formatter for `@epic-web/config`:
 
-- Replace the Prettier entry point with a published `oxfmt-preset.mjs` (via
+- Replace the Prettier entry point with a published `oxfmt-preset.js` (via
   `defineConfig`) and document `oxfmt` as a peer dependency.
 - Map the old Prettier options into Oxfmt where supported; document gaps (for
   example `insertPragma` / `requirePragma`, and regex-based Tailwind attribute
@@ -53,7 +53,7 @@ Adopt **Oxfmt** as the shared formatter for `@epic-web/config`:
 - Output is “Prettier-like” but not identical everywhere; teams should expect a
   one-time format churn when switching.
 - Some Prettier options and comment forms have no equivalent; those are called
-  out in `oxfmt-preset.mjs` and the readme.
+  out in `oxfmt-preset.js` and the readme.
 
 Historical decision docs that mention Prettier remain valid as context for
 _formatting style_; this decision supersedes the _tool choice_ for applying that
