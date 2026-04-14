@@ -52,7 +52,9 @@ refactors are often not straightforward:
 ```json
 {
 	"plugins": ["import", "react", "typescript", "vitest"],
-	"jsPlugins": ["./node_modules/@epic-web/config/lint-rules/epic-web-plugin.js"],
+	"jsPlugins": [
+		"./node_modules/@epic-web/config/lint-rules/epic-web-plugin.js"
+	],
 	"overrides": [
 		{
 			"files": ["**/*.test.*", "**/*.spec.*"],

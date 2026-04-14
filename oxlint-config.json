@@ -31,6 +31,7 @@
 			}
 		],
 		"epic-web/no-manual-dispose": "warn",
+		"epic-web/no-prettier-ignore": "warn",
 		"import/no-duplicates": [
 			"warn",
 			{

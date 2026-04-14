@@ -21,7 +21,7 @@ body:
       description: >-
         Link to the documentation for the config option you're suggesting
         changing
-      placeholder: https://prettier.io/docs/en/options#jsx-quotes
+      placeholder: https://oxc.rs/docs/guide/usage/formatter/config-file-reference.html
     validations:
       required: true
   - type: textarea

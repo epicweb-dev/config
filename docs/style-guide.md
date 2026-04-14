@@ -18,7 +18,8 @@ Much of this is subjective, but most opinions are thought through and based on
 years of experience working with large codebases and teams.
 
 Note: Not every possible formatting opinion is mentioned because they are
-handled automatically by [Prettier](https://prettier.io) anyway.
+handled automatically by [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html)
+anyway.
 
 ## JavaScript
 

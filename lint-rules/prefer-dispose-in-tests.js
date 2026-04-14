@@ -291,7 +291,10 @@ function analyzeSuiteNode(suiteNode) {
 	let hasDirectSuiteHooks = false
 
 	walk(suiteNode, (currentNode) => {
-		if (currentNode.type === 'CallExpression' && isTestCallExpression(currentNode)) {
+		if (
+			currentNode.type === 'CallExpression' &&
+			isTestCallExpression(currentNode)
+		) {
 			testCount += 1
 		}
 	})
@@ -322,7 +325,10 @@ function getTopLevelCallNames(callbackNode) {
 
 		let expressionNode = statement.expression
 
-		if (expressionNode.type === 'UnaryExpression' && expressionNode.operator === 'void') {
+		if (
+			expressionNode.type === 'UnaryExpression' &&
+			expressionNode.operator === 'void'
+		) {
 			expressionNode = expressionNode.argument
 		}
 

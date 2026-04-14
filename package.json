@@ -1,26 +1,26 @@
 {
   "$schema": "https://json.schemastore.org/package",
   "name": "@epic-web/config",
+  "version": "0.0.0-semantically-released",
+  "description": "Reasonable Oxlint, Oxfmt, and TypeScript configs for epic web devs",
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.0-semantically-released",
-  "description": "Reasonable Oxlint, Prettier, and TypeScript configs for epic web devs",
-  "main": "index.js",
   "type": "module",
+  "main": "index.js",
   "imports": {
     "#/*": "./*"
   },
   "exports": {
     ".": "./index.js",
-    "./prettier": "./prettier.js",
+    "./oxfmt": "./oxfmt-preset.mjs",
     "./typescript": "./typescript.json",
     "./reset.d.ts": "./reset.d.ts",
     "./oxlint": "./oxlint-config.json"
   },
-  "prettier": "./prettier.js",
   "scripts": {
-    "format": "prettier . --write",
+    "format": "oxfmt -c ./oxfmt.config.mjs",
+    "format:check": "oxfmt -c ./oxfmt.config.mjs --check",
     "lint": "oxlint --config oxlint-config.json .",
     "test": "vitest run lint-rules/*.test.js",
     "typecheck": "tsc",
@@ -28,10 +28,10 @@
   },
   "keywords": [
     "config",
+    "epic",
+    "oxfmt",
     "oxlint",
-    "prettier",
-    "typescript",
-    "epic"
+    "typescript"
   ],
   "author": "Kent C. Dodds <me@kentcdodds.com> (https://kentcdodds.com/)",
   "repository": {
@@ -40,18 +40,20 @@
   },
   "homepage": "https://github.com/epicweb-dev/config",
   "license": "MIT",
+  "peerDependencies": {
+    "oxfmt": ">=0.45.0 <1"
+  },
   "dependencies": {
     "@oxlint/plugins": "^1.43.0",
     "@total-typescript/ts-reset": "^0.6.1",
-    "prettier-plugin-tailwindcss": "^0.6.14",
     "tslib": "^2.8.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.54.1",
     "@types/react": "^19.1.8",
     "npm-run-all": "^4.1.5",
+    "oxfmt": "^0.45.0",
     "oxlint": "^1.57.0",
-    "prettier": "^3.6.2",
     "react": "^19.1.0",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"

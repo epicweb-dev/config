@@ -1,7 +1,7 @@
 <div>
   <h1 align="center"><a href="https://npm.im/@epic-web/config">👮 @epic-web/config</a></h1>
   <strong>
-    Reasonable Oxlint, Prettier, and TypeScript configs for epic web devs
+    Reasonable Oxlint, Oxfmt, and TypeScript configs for epic web devs
   </strong>
   <p>
     This makes assumptions about the way you prefer to develop software and gives you configurations that will actually help you in your development.
@@ -43,7 +43,7 @@ configuring code quality tools or babysitting them.
 This package provides shared defaults for the tools this repo currently ships:
 
 - Oxlint
-- Prettier
+- Oxfmt
 - TypeScript
 
 ## Decisions
@@ -57,32 +57,63 @@ Technically you configure everything yourself, but you can use the configs in
 this project as a starter for your projects (and in some cases you don't need to
 configure anything more than the defaults).
 
-### Prettier
+### Oxfmt (formatter)
 
-The easiest way to use this config is in your `package.json`:
+Install [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) alongside this
+package (it is listed in `peerDependencies`).
+
+The `@epic-web/config/oxfmt` entry resolves to a plain `.mjs` preset so Node
+does not need to strip TypeScript from files under `node_modules` when you
+extend it.
+
+Create an `oxfmt.config.ts` file in your project root:
+
+```ts
+import epicOxfmt from '@epic-web/config/oxfmt'
+import { defineConfig } from 'oxfmt'
+
+export default defineConfig({
+	...epicOxfmt,
+	printWidth: 100,
+})
+```
+
+Oxfmt does not have an `extends` field; spreading the preset and setting any
+top-level option afterward is how you override it (same idea for
+`ignorePatterns`: spread `epicOxfmt.ignorePatterns` and append paths).
+
+Add scripts (see the
+[migration guide](https://oxc.rs/docs/guide/usage/formatter/migrate-from-prettier.html)):
 
 ```json
-"prettier": "@epic-web/config/prettier"
-```
-
-<details>
-  <summary>Customizing Prettier</summary>
-
-If you want to customize things, you should probably just copy/paste the
-built-in config. But if you really want, you can override it using regular
-JavaScript stuff.
-
-Create a `.prettierrc.js` file in your project root with the following content:
-
-```js
-import defaultConfig from '@epic-web/config/prettier'
-
-/** @type {import("prettier").Options} */
-export default {
-	...defaultConfig,
-	// .. your overrides here...
+{
+	"scripts": {
+		"format": "oxfmt",
+		"format:check": "oxfmt --check"
+	}
 }
 ```
+
+The shared config sets 80 `printWidth`, tabs (spaces only in `package.json`
+overrides), no semicolons, single quotes, `trailingComma: "all"`, Tailwind class
+sorting via native `sortTailwindcss`, and MDX overrides for `proseWrap` /
+`htmlWhitespaceSensitivity`. Options that Oxfmt does not support
+(`insertPragma`, `requirePragma`) are omitted.
+
+[`ignorePatterns`](https://oxc.rs/docs/guide/usage/formatter/ignore-files.html)
+covers common build, cache, Playwright, Prisma, and lockfile paths used across
+Epic projects. Adjust in your `defineConfig` if your layout differs.
+
+<details>
+  <summary>Customizing Oxfmt</summary>
+
+If you want to customize things heavily, you can copy the options from
+[`oxfmt-preset.mjs`](./oxfmt-preset.mjs) into your own config. For small tweaks,
+keep spreading `epicOxfmt` and override or extend fields as in the example
+above.
+
+Use `"type": "module"` in your `package.json` when your `oxfmt.config.ts` uses
+`import` / `export` syntax (same as for other ESM tooling).
 
 </details>
 
@@ -137,6 +168,13 @@ docs.
 Some Oxlint rule IDs still use the `eslint/` namespace because that is how
 Oxlint exposes those compatibility rules. You do not need to install ESLint to
 use them.
+
+The `epic-web/no-prettier-ignore` rule warns on `prettier-ignore` in JavaScript
+and TypeScript comments and can auto-fix them to `oxfmt-ignore` for Oxfmt. Keep
+`prettier-ignore` where Oxfmt still recommends it (for example non-JS regions in
+Vue); see the
+[inline ignore comments](https://oxc.rs/docs/guide/usage/formatter/ignore-comments.html)
+docs.
 
 #### Not yet covered
 

@@ -22,9 +22,7 @@ const epicWebPluginPath = path.join(
 const temporaryDirectories = new Set()
 
 afterEach(async () => {
-	await Promise.all(
-		[...temporaryDirectories].map(cleanupTemporaryDirectory),
-	)
+	await Promise.all([...temporaryDirectories].map(cleanupTemporaryDirectory))
 })
 
 async function cleanupTemporaryDirectory(directory) {
@@ -104,7 +102,9 @@ export async function runOxlint(input) {
 		}
 
 		if (result.exitCode != null && result.exitCode > 1) {
-			throw new Error(result.stdout || `Oxlint exited with code ${result.exitCode}`)
+			throw new Error(
+				result.stdout || `Oxlint exited with code ${result.exitCode}`,
+			)
 		}
 
 		const stdout = result.stdout.trim()
@@ -120,4 +120,3 @@ export async function disposeOxlintFixture(fixture) {
 	// oxlint-disable-next-line epic-web/no-manual-dispose
 	await fixture[Symbol.asyncDispose]()
 }
-

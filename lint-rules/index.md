@@ -14,4 +14,5 @@ Oxlint JS plugin rules.
 ## Rules
 
 - [`epic-web/no-manual-dispose`](./no-manual-dispose.md)
+- [`epic-web/no-prettier-ignore`](./no-prettier-ignore.md)
 - [`epic-web/prefer-dispose-in-tests`](./prefer-dispose-in-tests.md)

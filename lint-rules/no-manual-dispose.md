@@ -8,8 +8,8 @@ use `using` or `await using`.
 Manual cleanup with `try/finally` and disposal calls is easier to get wrong and
 less readable than language-level disposables.
 
-This rule is implemented as an Oxlint JS plugin rule using Oxlint's
-`createOnce` API.
+This rule is implemented as an Oxlint JS plugin rule using Oxlint's `createOnce`
+API.
 
 ## What it warns on
 

@@ -19,8 +19,7 @@ body:
     attributes:
       label: Rule or Config Docs
       description: >-
-        Link to the Oxlint rule or configuration docs you're suggesting
-        changing
+        Link to the Oxlint rule or configuration docs you're suggesting changing
       placeholder: https://oxc.rs/docs/guide/usage/linter/rules/
     validations:
       required: true
@@ -28,9 +27,9 @@ body:
     attributes:
       label: Suggested Change
       description: >-
-        Write out the suggested change in configuration. If the rule or config is
-        already present, explain why it should be removed or changed. If it's not
-        present, explain why it should be added. And provide the final
+        Write out the suggested change in configuration. If the rule or config
+        is already present, explain why it should be removed or changed. If it's
+        not present, explain why it should be added. And provide the final
         configuration for the option.
     validations:
       required: true
