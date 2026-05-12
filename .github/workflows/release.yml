@@ -6,56 +6,55 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: write # to be able to publish a GitHub release
-  issues: write # to be able to comment on released issues
-  pull-requests: write # to be able to comment on released pull requests
-  id-token: write # to enable use of OIDC for npm provenance
+  contents: read
 
 jobs:
   validate:
-    name: 🔍 Validate
+    name: ð Validate
     runs-on: ubuntu-latest
     steps:
-      - name: ⬇️ Checkout repo
+      - name: â¬ï¸ Checkout repo
         uses: actions/checkout@v5
 
-      - name: ⎔ Setup node
+      - name: â Setup node
         uses: actions/setup-node@v6
         with:
           node-version: lts/*
 
-      - name: 📥 Download deps
+      - name: ð¥ Download deps
         uses: bahmutov/npm-install@v1
         with:
           useLockFile: false
 
-      - name: 🔍 Validate
+      - name: ð Validate
         run: npm run validate
 
   release:
     name: 🚀 Release
     needs: [validate]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      id-token: write # to enable use of OIDC for npm provenance
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
     if:
       ${{ github.repository == 'epicweb-dev/config' &&
       contains('refs/heads/main,refs/heads/beta,refs/heads/next,refs/heads/alpha',
       github.ref) && github.event_name == 'push' }}
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
       - name: ⎔ Setup node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
-          node-version: lts/*
-
-      - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
 
       - name: 🚀 Release
-        uses: cycjimmy/semantic-release-action@v5.0.2
+        uses: cycjimmy/semantic-release-action@ba330626c4750c19d8299de843f05c7aa5574f62 # v5.0.2
         with:
           semantic_version: 25
           branches: |
@@ -70,3 +69,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
+          NPM_CONFIG_IGNORE_SCRIPTS: true
