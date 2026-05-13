@@ -1,4 +1,4 @@
-name: release
+name: 🚀 Release
 on: [push, pull_request]
 
 concurrency:
@@ -13,20 +13,20 @@ jobs:
     name: 🔍 Validate
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: ⬇️ Checkout repo
         uses: actions/checkout@v5
 
-      - name: Setup node
+      - name: ⎔ Setup node
         uses: actions/setup-node@v6
         with:
           node-version: lts/*
 
-      - name: Download deps
+      - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
         with:
           useLockFile: false
 
-      - name: Validate
+      - name: 🔍 Validate
         run: npm run validate
 
   release:
@@ -40,17 +40,17 @@ jobs:
       pull-requests: write # to be able to comment on released pull requests
     if: ${{ github.repository == 'epicweb-dev/config' && github.event_name == 'push' }}
     steps:
-      - name: Checkout repo
+      - name: ⬇️ Checkout repo
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
-      - name: Setup node
+      - name: ⎔ Setup node
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
           package-manager-cache: false
 
-      - name: Release
+      - name: 🚀 Release
         uses: cycjimmy/semantic-release-action@ba330626c4750c19d8299de843f05c7aa5574f62 # v5.0.2
         with:
           semantic_version: 25
