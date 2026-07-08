@@ -38,7 +38,9 @@ jobs:
       id-token: write # to enable use of OIDC for npm provenance
       issues: write # to be able to comment on released issues
       pull-requests: write # to be able to comment on released pull requests
-    if: ${{ github.repository == 'epicweb-dev/config' && github.event_name == 'push' }}
+    if:
+      ${{ github.repository == 'epicweb-dev/config' && github.event_name ==
+      'push' }}
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5

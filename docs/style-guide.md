@@ -1367,9 +1367,7 @@ export type EventTypes = keyof typeof EVENTS
 
 // ❌ Avoid
 export type EventTypes =
-	| 'USER_CODE_RECEIVED'
-	| 'AUTH_RESOLVED'
-	| 'AUTH_REJECTED'
+	'USER_CODE_RECEIVED' | 'AUTH_RESOLVED' | 'AUTH_REJECTED'
 ```
 
 #### Event Schemas
